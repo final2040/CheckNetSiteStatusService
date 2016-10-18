@@ -127,7 +127,7 @@ namespace Services
                             CurrentStatus = ConnectionStatus.ConnectionOffline;
                         }
                     }
-                    Thread.Sleep(_timeBetweenTests);
+                    Thread.Sleep(_timeBetweenTests); 
                 }
                 
             }
