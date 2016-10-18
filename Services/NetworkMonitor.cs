@@ -70,74 +70,64 @@ namespace Services
         {
             while (true)
             {
-                var startRetryingTime = DateTime.Now;
-                var retryResults = new List<INetTestResult>();
-                while (CurrentStatus != ConnectionStatus.ConnectionOffline)
-                {
-                    var testResult = NetworkTest.Test();
-
-                    if (!testResult.Success && _currentStatus == ConnectionStatus.ConnectionOnline)
-                    {
-                        CurrentStatus = ConnectionStatus.Retrying;
-                        startRetryingTime = DateTime.Now;
-                        retryResults.Clear();
-
-                    }
-                    if (CurrentStatus == ConnectionStatus.Retrying)
-                    {
-                        retryResults.Add(testResult);
-                        if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
-                            !testResult.Success)
-                        {
-                            CurrentStatus = ConnectionStatus.ConnectionOffline;
-                            OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName,retryResults));
-                        }
-                        else if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
-                           testResult.Success)
-                        {
-                            CurrentStatus = ConnectionStatus.ConnectionOnline;
-                        }
-                    }
-
-                    Thread.Sleep(_timeBetweenTests);
-                }
-
-                while (CurrentStatus != ConnectionStatus.ConnectionOnline)
-                {
-                    var testResult = _networkTest.Test();
-
-                    if (testResult.Success && _currentStatus == ConnectionStatus.ConnectionOffline)
-                    {
-                        CurrentStatus = ConnectionStatus.Retrying;
-                        startRetryingTime = DateTime.Now;
-                        retryResults.Clear();
-                    }
-                    if (CurrentStatus == ConnectionStatus.Retrying)
-                    {
-                        retryResults.Add(testResult);
-                        if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
-                            testResult.Success)
-                        {
-                            CurrentStatus = ConnectionStatus.ConnectionOnline;
-                            OnConnectionBack?.Invoke(this,new TestNetworkEventArgs(_testNetworkName,retryResults));
-                        }
-                        else if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
-                           !testResult.Success)
-                        {
-                            CurrentStatus = ConnectionStatus.ConnectionOffline;
-                        }
-                    }
-                    Thread.Sleep(_timeBetweenTests); 
-                }
-                
+                TestConnection(CurrentStatus);
             }
         }
-    }
 
-    public enum ConnectionStatus
-    {
-        ConnectionOnline,
-        ConnectionOffline,
-        Retrying
+        private void TestConnection(ConnectionStatus status)
+        {
+            var startRetryingTime = DateTime.Now;
+            var retryResults = new List<INetTestResult>();
+
+            var nextStatus = ConnectionStatus.ConnectionOffline;
+            var testMode = false;
+
+            if (status == ConnectionStatus.ConnectionOffline)
+            {
+                nextStatus = ConnectionStatus.ConnectionOnline;
+                testMode = true;
+            }
+
+            while (CurrentStatus != nextStatus)
+            {
+                var testResult = NetworkTest.Test();
+               
+                if (testResult.Success == testMode && _currentStatus == status)
+                {
+                    CurrentStatus = ConnectionStatus.Retrying;
+                    startRetryingTime = DateTime.Now;
+                    retryResults.Clear();
+                }
+                if (CurrentStatus == ConnectionStatus.Retrying)
+                {
+                    retryResults.Add(testResult);
+                    if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
+                        testResult.Success == testMode)
+                    {
+                        CurrentStatus = nextStatus;
+                        RaiseEvent(status, retryResults);
+                    }
+                    else if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
+                             testResult.Success != testMode)
+                    {
+                        CurrentStatus = status;
+                    }
+                }
+
+                Thread.Sleep(_timeBetweenTests);
+            }
+        }
+
+        private void RaiseEvent(ConnectionStatus status, List<INetTestResult> retryResults)
+        {
+            if (status == ConnectionStatus.ConnectionOnline)
+            {
+                OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults));
+            }
+            else
+            {
+                OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults));
+            }
+        }
     }
 }
