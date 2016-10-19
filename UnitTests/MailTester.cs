@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Net;
 using System.Net.Mail;
 using System.Security;
+using Data;
 using Moq;
 using NUnit.Framework;
 using Services;
@@ -35,8 +36,6 @@ namespace UnitTests
             
             _mockMail.Setup(mm => mm.Send(It.IsAny<MailMessage>())).Verifiable();
             
-
-
             // act
             mail.Send();
 

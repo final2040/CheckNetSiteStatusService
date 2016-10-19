@@ -58,7 +58,7 @@ namespace UnitTests
         public void ShouldReturnTcpTestSuccessOnOpenPort()
         {
             // arrange
-            var network = new NetworkTest("192.168.0.101", 9090);
+            var network = new NetworkTest("172.28.129.100", 8080);
 
             // act
             var result = network.TestTcpPort();

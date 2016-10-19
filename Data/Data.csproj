@@ -31,6 +31,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -40,13 +41,20 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CompositeValidationResults.cs" />
+    <Compile Include="Configuration.cs" />
     <Compile Include="ConnectionStatus.cs" />
     <Compile Include="ICryptoKey.cs" />
     <Compile Include="INetTestResult.cs" />
     <Compile Include="PingTestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SmtpConfiguration.cs" />
+    <Compile Include="SmtpCredential.cs" />
     <Compile Include="TCPTestResult.cs" />
     <Compile Include="TestNetworkEventArgs.cs" />
+    <Compile Include="ValidateCollection.cs" />
+    <Compile Include="ValidateObject.cs" />
+    <Compile Include="ValidationHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

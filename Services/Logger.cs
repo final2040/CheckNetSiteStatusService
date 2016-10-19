@@ -34,7 +34,7 @@ namespace Services
             set { _timeFormatTemplate = value; }
         }
 
-        private static Logger GetLogger()
+        public static Logger GetLogger()
         {
             if (_me == null)
             {
@@ -43,7 +43,6 @@ namespace Services
             }
             return _me;
         }
-
 
         public void Write(LogType type, string message)
         {
