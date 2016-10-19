@@ -45,71 +45,71 @@ namespace Services
 
         #region Properties
 
-        public X509CertificateCollection Type
+        public virtual X509CertificateCollection Type
         {
             get { return _smtpClient.ClientCertificates; }
         }
 
-        public ICredentialsByHost Credentials
+        public virtual ICredentialsByHost Credentials
         {
             get { return _smtpClient.Credentials; }
             set { _smtpClient.Credentials = value; }
         }
 
-        public SmtpDeliveryFormat DeliveryFormat
+        public virtual SmtpDeliveryFormat DeliveryFormat
         {
             get { return _smtpClient.DeliveryFormat; }
             set { _smtpClient.DeliveryFormat = value; }
         }
 
-        public SmtpDeliveryMethod DeliveryMethod
+        public virtual SmtpDeliveryMethod DeliveryMethod
         {
             get { return _smtpClient.DeliveryMethod; }
             set { _smtpClient.DeliveryMethod = value; }
         }
 
-        public bool EnableSsl
+        public virtual bool EnableSsl
         {
             get { return _smtpClient.EnableSsl; }
             set { _smtpClient.EnableSsl = value; }
         }
 
-        public string Host
+        public virtual string Host
         {
             get { return _smtpClient.Host; }
             set { _smtpClient.Host = value; }
         }
 
-        public string PickupDirectoryLocation
+        public virtual string PickupDirectoryLocation
         {
             get { return _smtpClient.PickupDirectoryLocation; }
             set { _smtpClient.PickupDirectoryLocation = value; }
         }
 
-        public int Port
+        public virtual int Port
         {
             get { return _smtpClient.Port; }
             set { _smtpClient.Port = value; }
         }
 
-        public ServicePoint ServicePoint
+        public virtual ServicePoint ServicePoint
         {
             get { return _smtpClient.ServicePoint; }
         }
 
-        public string TargetName
+        public virtual string TargetName
         {
             get { return _smtpClient.TargetName; }
             set { _smtpClient.TargetName = value; }
         }
 
-        public int Timeout
+        public virtual int Timeout
         {
             get { return _smtpClient.Timeout; }
             set { _smtpClient.Timeout = value; }
         }
 
-        public bool UseDefaultCredentials
+        public virtual bool UseDefaultCredentials
         {
             get { return _smtpClient.UseDefaultCredentials; }
             set { _smtpClient.UseDefaultCredentials = value; }
