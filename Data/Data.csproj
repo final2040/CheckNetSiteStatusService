@@ -41,6 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConnectionStatus.cs" />
+    <Compile Include="ICryptoKey.cs" />
     <Compile Include="INetTestResult.cs" />
     <Compile Include="PingTestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

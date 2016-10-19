@@ -3,7 +3,7 @@ using System.Text;
 
 namespace Services
 {
-    public class FileHelper
+    public class FileWrapper
     {
         public virtual void AppendAllText(string path, string contents, Encoding encoding)
         {

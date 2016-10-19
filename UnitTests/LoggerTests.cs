@@ -18,10 +18,10 @@ namespace UnitTests
         public void ShouldWriteInformationToTheLog()
         {
             // arrange
-            Mock<FileHelper> mockFileHelper = new Mock<FileHelper>();
+            Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
             string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "INFORMATION", "Se ha enviado un mensaje al log");
 
-            Logger.Log.FileHelper = mockFileHelper.Object;
+            Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";
             mockFileHelper.Setup(m => m.AppendAllText(It.IsAny<string>(),message,Encoding.UTF8)).Verifiable();
 
@@ -36,10 +36,10 @@ namespace UnitTests
         public void ShouldWriteWarningToTheLog()
         {
             // arrange
-            Mock<FileHelper> mockFileHelper = new Mock<FileHelper>();
+            Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
             string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "WARNING", "Se ha enviado una advertencia al log");
 
-            Logger.Log.FileHelper = mockFileHelper.Object;
+            Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";
             mockFileHelper.Setup(m => m.AppendAllText(It.IsAny<string>(), message, Encoding.UTF8)).Verifiable();
 
@@ -54,10 +54,10 @@ namespace UnitTests
         public void ShouldWriteErrorToTheLog()
         {
             // arrange
-            Mock<FileHelper> mockFileHelper = new Mock<FileHelper>();
+            Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
             string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "ERROR", "Se ha enviado un error al log");
 
-            Logger.Log.FileHelper = mockFileHelper.Object;
+            Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";
             mockFileHelper.Setup(m => m.AppendAllText(It.IsAny<string>(), message, Encoding.UTF8)).Verifiable();
 

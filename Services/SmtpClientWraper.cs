@@ -6,7 +6,7 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace Services
 {
-    public class SmtpClientWraper : IDisposable, ISmtpClient
+    public class SmtpClientWraper : IDisposable
     {
         private readonly SmtpClient _smtpClient;
 
@@ -118,44 +118,44 @@ namespace Services
         #endregion
 
 
-        public event SendCompletedEventHandler SendCompleted;
+        public virtual event SendCompletedEventHandler SendCompleted;
 
-        public void Dispose()
+        public virtual void Dispose()
         {
             _smtpClient.Dispose();
         }
 
-        public void Send(MailMessage message)
+        public virtual void Send(MailMessage message)
         {
             _smtpClient.Send(message);
         }
 
-        public void Send(string @from, string recipients, string subject, string body)
+        public virtual void Send(string @from, string recipients, string subject, string body)
         {
             _smtpClient.Send(@from, recipients, subject, body);
         }
 
-        public void SendAsync(MailMessage mailMessage, Object userToken)
+        public virtual void SendAsync(MailMessage mailMessage, Object userToken)
         {
             _smtpClient.SendAsync(mailMessage,userToken);
         }
 
-        public void SendAsync(String @from, String recipients, String subject, String body, Object userToken)
+        public virtual void SendAsync(String @from, String recipients, String subject, String body, Object userToken)
         {
             _smtpClient.SendAsync(@from,recipients,subject,body,userToken);
         }
 
-        public void SendAsyncCancel()
+        public virtual void SendAsyncCancel()
         {
             _smtpClient.SendAsyncCancel();
         }
 
-        public void SendMailAsync(MailMessage mailMessage)
+        public virtual void SendMailAsync(MailMessage mailMessage)
         {
             _smtpClient.SendMailAsync(mailMessage);
         }
 
-        public void SendMailAsync(String @from, String recipients, String subject, String body)
+        public virtual void SendMailAsync(String @from, String recipients, String subject, String body)
         {
             _smtpClient.SendMailAsync(@from, recipients, subject, body);
         }

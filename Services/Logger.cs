@@ -7,17 +7,17 @@ namespace Services
     public class Logger
     {
         private static Logger _me;
-        private FileHelper _fileHelper = new FileHelper();
+        private FileWrapper _fileWrapper = new FileWrapper();
         private string _logPath = Path.Combine(Environment.CurrentDirectory, "log.txt");
         private string _template = "{0} {1}: {2}.";
         private string _timeFormatTemplate = "yy/MM/yyyy HH:mm:ss";
 
         private Logger() { }
 
-        public FileHelper FileHelper
+        public FileWrapper FileWrapper
         {
-            get { return _fileHelper; }
-            set { _fileHelper = value; }
+            get { return _fileWrapper; }
+            set { _fileWrapper = value; }
         }
 
         public string LogPath { get { return _logPath; } set { _logPath = value; } }
@@ -48,7 +48,7 @@ namespace Services
         public void Write(LogType type, string message)
         {
             string logMessage = string.Format(Template, DateTime.Now.ToString(TimeFormatTemplate), type.ToString().ToUpper(), message);
-            _fileHelper.AppendAllText(LogPath, logMessage, Encoding.UTF8);
+            _fileWrapper.AppendAllText(LogPath, logMessage, Encoding.UTF8);
         }
     }
 }
