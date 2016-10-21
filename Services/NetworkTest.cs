@@ -5,6 +5,7 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
+using Data.Interfaces;
 
 namespace Services
 {
@@ -12,7 +13,7 @@ namespace Services
     {
         private const int PORT_MAX_VALUE = 65535;
         private const int PORT_MIN_VALUE = 1;
-        private const int NO_PORT_SELECTED = -1;
+        private const int NO_PORT_SELECTED = 0;
         private const string IP_REGEX = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
 
         private readonly Ping _ping = new Ping();
@@ -20,7 +21,7 @@ namespace Services
         private string _hostNameOrAddress;
         private readonly int _remotePort;
         
-        public NetworkTest(string hostNameOrAddress):this(hostNameOrAddress,-1,2000){}
+        public NetworkTest(string hostNameOrAddress):this(hostNameOrAddress,0,2000){}
 
         public NetworkTest(string hostNameOrAddress, int remotePort):this(hostNameOrAddress,remotePort,2000) { }
 
@@ -50,6 +51,11 @@ namespace Services
         public virtual int TcpMillisecondsTimeout
         {
             get { return _tcpMillisecondsTimeout; }
+        }
+
+        public int RemotePort
+        {
+            get { return _remotePort; }
         }
 
         public virtual PingTestResult TestPing()
@@ -84,7 +90,7 @@ namespace Services
 
         public virtual INetTestResult Test()
         {
-            if (_remotePort.Equals(-1))
+            if (_remotePort.Equals(NO_PORT_SELECTED))
             {
                 return TestPing();
             }

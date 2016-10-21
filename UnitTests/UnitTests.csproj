@@ -39,6 +39,7 @@
       <Private>True</Private>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -49,6 +50,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AesEncrypterTests.cs" />
+    <Compile Include="ConfigurationManagerTests.cs" />
     <Compile Include="LoggerTests.cs" />
     <Compile Include="MailTester.cs" />
     <Compile Include="NetworkMonitorTests.cs" />
@@ -74,7 +76,10 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="NewFile.txt" />
+    <Content Include="config.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <SubType>Designer</SubType>
+    </Content>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

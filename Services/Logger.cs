@@ -1,6 +1,8 @@
 ﻿using System;
 using System.IO;
+using System.Reflection;
 using System.Text;
+using Data;
 
 namespace Services
 {
@@ -8,8 +10,10 @@ namespace Services
     {
         private static Logger _me;
         private FileWrapper _fileWrapper = new FileWrapper();
-        private string _logPath = Path.Combine(Environment.CurrentDirectory, "log.txt");
-        private string _template = "{0} {1}: {2}.";
+
+        private string _logPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
+            "netmonitorservice.log");
+        private string _template = "{0} {1}: {2}." + Environment.NewLine;
         private string _timeFormatTemplate = "yy/MM/yyyy HH:mm:ss";
 
         private Logger() { }
@@ -48,6 +52,34 @@ namespace Services
         {
             string logMessage = string.Format(Template, DateTime.Now.ToString(TimeFormatTemplate), type.ToString().ToUpper(), message);
             _fileWrapper.AppendAllText(LogPath, logMessage, Encoding.UTF8);
+        }
+        public void Write(LogType type, string formatedMessage, params object[] args)
+        {
+            Write(type, string.Format(formatedMessage, args));
+        }
+        public void WriteError(string message)
+        {
+            Write(LogType.Error, message);
+        }
+        public void WriteError(string format, params object[] args)
+        {
+            Write(LogType.Error, format, args);
+        }
+        public void WriteWarning(string message)
+        {
+            Write(LogType.Warning, message);
+        }
+        public void WriteWarning(string message, params object[] args)
+        {
+            Write(LogType.Warning, message, args);
+        }
+        public void WriteInformation(string message)
+        {
+            Write(LogType.Information, message);
+        }
+        public void WriteInformation(string format, params object[] args)
+        {
+            Write(LogType.Information, format, args);
         }
     }
 }

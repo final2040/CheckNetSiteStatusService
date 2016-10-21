@@ -1,7 +1,7 @@
 using System;
 using System.Net.NetworkInformation;
 
-namespace Data
+namespace Data.Interfaces
 {
     public interface INetTestResult
     {

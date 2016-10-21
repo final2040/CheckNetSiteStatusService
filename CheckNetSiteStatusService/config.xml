@@ -1,0 +1,24 @@
+﻿<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <WaitTime>2000</WaitTime>
+  <TimeOut>120000</TimeOut>
+  
+  <IpToTest>
+    <IP Address="172.28.129.100" Port="8080">ARCHIVOS AIFCOMX</IP>
+    <IP Address="172.28.129.88">TEST PC</IP>
+  </IpToTest>
+  
+  <MailConfiguration>
+    <SendFrom>noreply@airpak-latam.com</SendFrom>
+    <Recipients>
+      <Email>rene.cruz@airpak-latam.com</Email>
+      <Email>gerardo.mendez@airpak-latam.com</Email>
+      <Email>rene.zamorano@airpak-latam.com</Email>
+    </Recipients>
+    <Subject>El subject del mail</Subject>
+    <Body>el cuerpo del mail bla bla bla</Body>
+    <IsHtml>false</IsHtml>
+    <SmtpCredentials UserName="olga" Password="algo" />
+    <SmtpConfiguration Host="smtp.gmail.com" Port="465" UseSsl="true" />
+  </MailConfiguration>
+</Configuration>

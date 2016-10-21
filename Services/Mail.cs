@@ -24,11 +24,11 @@ namespace Services
         public bool IsMessageHtml { get; set; }
         public SmtpConfiguration SmtpConfiguration { get; set; }
         public NetworkCredential SmtpCredentials { get; set; }
-
-        [Obsolete("For testing purposes only don't use possible null")]
+        
         public MailMessage Message
         {
             get { return _message; }
+            set { _message = value; }
         }
 
         public string From { get; set; }
@@ -37,7 +37,16 @@ namespace Services
         {
             Validate();
             SetSmtpConfiguration(_smtpClient);
-            _smtpClient.Send(GetMessage());
+            if (Message == null)
+            {
+                Message = GetMessage();
+            }
+            _smtpClient.Send(Message);
+        }
+
+        public void Send(MailMessage message)
+        {
+            _smtpClient.Send(Message);
         }
 
         private void Validate()
@@ -54,7 +63,7 @@ namespace Services
 
         private void SetSmtpConfiguration(SmtpClientWraper smtpClient)
         {
-            smtpClient.Host = SmtpConfiguration.Server;
+            smtpClient.Host = SmtpConfiguration.Host;
             smtpClient.Port = SmtpConfiguration.Port;
             smtpClient.EnableSsl = SmtpConfiguration.UseSsl;
             smtpClient.Credentials = SmtpCredentials;

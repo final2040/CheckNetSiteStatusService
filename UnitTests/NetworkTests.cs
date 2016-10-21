@@ -103,7 +103,7 @@ namespace UnitTests
         [TestCase(-25)]
         [TestCase(999999)]
         [TestCase(65536)]
-        [TestCase(0)]
+        [TestCase(-1)]
         public void ShouldRaiseExceptionOnInvalidPort(int remotePort)
         {
             // arrange

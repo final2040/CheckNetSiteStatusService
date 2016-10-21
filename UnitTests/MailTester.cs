@@ -27,7 +27,7 @@ namespace UnitTests
             mail.Body = "El cuerpo del correo";
             mail.IsMessageHtml = false;
             mail.SmtpConfiguration = new SmtpConfiguration();
-            mail.SmtpConfiguration.Server = "smtp.gmail.com";
+            mail.SmtpConfiguration.Host = "smtp.gmail.com";
             mail.SmtpConfiguration.Port = 465;
             mail.SmtpConfiguration.UseSsl = true;
             mail.SmtpCredentials = new NetworkCredential();
@@ -52,6 +52,7 @@ namespace UnitTests
             _mockMail.VerifySet(wraper => wraper.EnableSsl = true);
             _mockMail.VerifySet(wraper => wraper.Credentials = It.IsAny<NetworkCredential>());
         }
+       
          
     }
 }

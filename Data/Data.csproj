@@ -41,20 +41,21 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="CompositeValidationResults.cs" />
+    <Compile Include="EventArgs\ChangeEventArgs.cs" />
+    <Compile Include="Enum\LogType.cs" />
+    <Compile Include="Results\CompositeValidationResults.cs" />
     <Compile Include="Configuration.cs" />
-    <Compile Include="ConnectionStatus.cs" />
-    <Compile Include="ICryptoKey.cs" />
-    <Compile Include="INetTestResult.cs" />
-    <Compile Include="PingTestResult.cs" />
+    <Compile Include="Enum\ConnectionStatus.cs" />
+    <Compile Include="Interfaces\INetTestResult.cs" />
+    <Compile Include="Results\PingTestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SmtpConfiguration.cs" />
     <Compile Include="SmtpCredential.cs" />
-    <Compile Include="TCPTestResult.cs" />
-    <Compile Include="TestNetworkEventArgs.cs" />
-    <Compile Include="ValidateCollection.cs" />
-    <Compile Include="ValidateObject.cs" />
-    <Compile Include="ValidationHelper.cs" />
+    <Compile Include="Results\TCPTestResult.cs" />
+    <Compile Include="EventArgs\TestNetworkEventArgs.cs" />
+    <Compile Include="Attributes\ValidateCollection.cs" />
+    <Compile Include="Attributes\ValidateObject.cs" />
+    <Compile Include="Attributes\ValidationHelper.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

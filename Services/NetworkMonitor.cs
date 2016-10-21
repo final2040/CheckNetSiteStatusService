@@ -6,6 +6,7 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
+using Data.Interfaces;
 
 namespace Services
 {
@@ -40,7 +41,7 @@ namespace Services
                 if (!value.Equals(_currentStatus))
                 {
                     _currentStatus = value;
-                    OnStatusChange?.Invoke(this, null);
+                    OnStatusChange?.Invoke(this, new ChangeEventArgs(_currentStatus,_testNetworkName));
                 }
             }
         }
@@ -48,12 +49,12 @@ namespace Services
 
         #region Constructors
 
-        public NetworkMonitor(string ip) : this(new NetworkTest(ip, -1), DEFAULT_TIMEOUT, DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_NAME) { }
-        public NetworkMonitor(string ip, int port) : this(new NetworkTest(ip, port), DEFAULT_TIMEOUT, DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_NAME) { }
+        public NetworkMonitor(string ip) : this(new NetworkTest(ip, -1), DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_TIMEOUT,  DEFAULT_NAME) { }
+        public NetworkMonitor(string ip, int port) : this(new NetworkTest(ip, port), DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
         public NetworkMonitor(string ip, int port, int timeBetweenTests) : this(new NetworkTest(ip, port), timeBetweenTests, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
-        public NetworkMonitor(string ip, int port, int timeBetweenTests, string name) : this(new NetworkTest(ip, port), DEFAULT_TIMEOUT, timeBetweenTests, name) { }
-        public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds, string name) : this(new NetworkTest(ip, port), timeUntilFailSeconds, timeBetweenTests, name) { }
-        public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds) : this(new NetworkTest(ip, port), timeUntilFailSeconds, timeBetweenTests, DEFAULT_NAME) { }
+        public NetworkMonitor(string ip, int port, int timeBetweenTests, string name) : this(new NetworkTest(ip, port), timeBetweenTests, DEFAULT_TIMEOUT, name) { }
+        public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds, string name) : this(new NetworkTest(ip, port), timeBetweenTests, timeUntilFailSeconds,  name) { }
+        public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds) : this(new NetworkTest(ip, port), timeBetweenTests, timeUntilFailSeconds,  DEFAULT_NAME) { }
         public NetworkMonitor(NetworkTest tester) : this(tester, DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
         public NetworkMonitor(NetworkTest tester, int timeBetweenTests) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
         public NetworkMonitor(NetworkTest tester, int timeBetweenTests, string name) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, name) { }
@@ -107,8 +108,7 @@ namespace Services
                         CurrentStatus = nextStatus;
                         RaiseEvent(status, retryResults);
                     }
-                    else if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
-                             testResult.Success != testMode)
+                    else if (testResult.Success != testMode)
                     {
                         CurrentStatus = status;
                     }
@@ -122,11 +122,11 @@ namespace Services
         {
             if (status == ConnectionStatus.ConnectionOnline)
             {
-                OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults));
+                OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults,NetworkTest.HostNameOrAddress,NetworkTest.RemotePort));
             }
             else
             {
-                OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults));
+                OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults, NetworkTest.HostNameOrAddress, NetworkTest.RemotePort));
             }
         }
     }

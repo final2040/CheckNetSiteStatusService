@@ -5,6 +5,7 @@ using System.Linq;
 using System.Runtime.Remoting.Messaging;
 using System.Text;
 using System.Threading.Tasks;
+using Data;
 using Moq;
 using NUnit.Framework;
 using Services;
@@ -19,7 +20,7 @@ namespace UnitTests
         {
             // arrange
             Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
-            string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "INFORMATION", "Se ha enviado un mensaje al log");
+            string message = string.Format("{0} {1}: {2}." + Environment.NewLine, DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "INFORMATION", "Se ha enviado un mensaje al log");
 
             Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";
@@ -37,7 +38,7 @@ namespace UnitTests
         {
             // arrange
             Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
-            string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "WARNING", "Se ha enviado una advertencia al log");
+            string message = string.Format("{0} {1}: {2}." + Environment.NewLine, DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "WARNING", "Se ha enviado una advertencia al log");
 
             Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";
@@ -55,7 +56,7 @@ namespace UnitTests
         {
             // arrange
             Mock<FileWrapper> mockFileHelper = new Mock<FileWrapper>();
-            string message = string.Format("{0} {1}: {2}.", DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "ERROR", "Se ha enviado un error al log");
+            string message = string.Format("{0} {1}: {2}." + Environment.NewLine, DateTime.Now.ToString("yy/MM/yyyy HH:mm"), "ERROR", "Se ha enviado un error al log");
 
             Logger.Log.FileWrapper = mockFileHelper.Object;
             Logger.Log.TimeFormatTemplate = "yy/MM/yyyy HH:mm";

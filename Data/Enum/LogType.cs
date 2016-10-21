@@ -1,4 +1,4 @@
-﻿namespace Services
+﻿namespace Data
 {
     public enum LogType
     {

@@ -28,6 +28,7 @@ namespace Data
         [Required(ErrorMessage = "Debe de proporcionar una dirección de correo electrónico origen")]
         public string SendFrom { get; set; }
 
+        [XmlArrayItem("Email")]
         [Required(ErrorMessage = "Debe de proporcionar al menos un correo electrónico de destino")]
         public List<string> Recipients { get; set; }
 
@@ -45,7 +46,7 @@ namespace Data
         public SmtpCredential SmtpCredentials { get; set; }
 
         [Required(ErrorMessage = "Debe de proporcionar las configuraciones del servidor smtp")]
-        [ValidateObject(ErrorMessage = "Ocurrieron errores al validar laslas configuraciones del servidor smtp:")]
+        [ValidateObject(ErrorMessage = "Ocurrieron errores al validar las configuraciones del servidor smtp:")]
         public SmtpConfiguration SmtpConfiguration { get; set; }
     }
     [Serializable]

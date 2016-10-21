@@ -1,48 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
-using System.ServiceProcess;
-using System.Threading;
+﻿using Data;
 using Services;
-using Data;
+using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-
-namespace CheckNetSiteStatusService
+namespace ApplicationTest
 {
-    public partial class NetChecker : ServiceBase
+    class Program
     {
-        private readonly Logger _log = Logger.GetLogger();
-        private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
-
-        public NetChecker()
+        static void Main(string[] args)
         {
-            InitializeComponent();
+            Program pr = new Program();
+            pr.OnStart();
+            Console.ReadKey();
         }
 
-        protected override void OnStart(string[] args)
+        private readonly Logger _log = Logger.GetLogger();
+        private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
+        
+        protected  void OnStart()
         {
-            _log.WriteInformation("========================={0}====================", DateTime.Now.ToString("G"));
-            _log.WriteInformation("Inicializando Aplicación");
-            _log.WriteInformation("Creando subprocesos");
+            Console.WriteLine("========================={0}====================", DateTime.Now.ToString("G"));
+            Console.WriteLine("Inicializando Aplicación");
+            Console.WriteLine("Creando subprocesos");
             try
             {
                 foreach (IP ip in ConfigManager.Configuration.IpToTest)
                 {
-                    _log.WriteInformation("Creando monitor para: {0} ip: {1} puerto: {2}",
+                    Console.WriteLine("Creando monitor para: {0} ip: {1} puerto: {2}",
                         ip.Name, ip.Address, ip.Port);
 
                     var monitor = CreateMonitor(ip);
                     var thread = CreateThread(monitor);
 
                     _monitorCollection.Add(thread, monitor);
-                    _log.WriteInformation("Monitor creado exitosamente");
+                    Console.WriteLine("Monitor creado exitosamente");
                 }
-                _log.WriteInformation("Sub Procesos Creados Satisfactoriamente {0} " +
+                Console.WriteLine("Sub Procesos Creados Satisfactoriamente {0} " +
                                                 "procesos creados", _monitorCollection.Count);
             }
             catch (Exception exception)
             {
-                _log.WriteError("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
+                Console.WriteLine("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
                                      "StackTrace: {1}", exception.Message, exception.StackTrace);
             }
         }
@@ -68,36 +70,36 @@ namespace CheckNetSiteStatusService
         private void Monitor_OnConnectionLost(object sender, EventArgs e)
         {
             TestNetworkEventArgs eventArgs = (TestNetworkEventArgs)e;
-            _log.WriteError("Se ha perdido la conección con el host: {0} ip: {1} puerto: {2}",
+            Console.WriteLine("Se ha perdido la conección con el host: {0} ip: {1} puerto: {2}",
                 eventArgs.ConnectionName, eventArgs.Ip, eventArgs.Port);
 
-            _log.WriteInformation("Enviando correo electrónico");
+            Console.WriteLine("Enviando correo electrónico");
 
-            _log.WriteInformation("Correo enviado correctamente");
+            Console.WriteLine("Correo enviado correctamente");
         }
 
         private void Monitor_OnConnectionBack(object sender, EventArgs e)
         {
             TestNetworkEventArgs eventArgs = (TestNetworkEventArgs)e;
-            _log.WriteInformation("Se ha restablecido la conección con el host: {0} ip: {1} puerto: {2}",
+            Console.WriteLine("Se ha restablecido la conección con el host: {0} ip: {1} puerto: {2}",
                 eventArgs.ConnectionName, eventArgs.Ip, eventArgs.Port);
 
-            _log.WriteInformation("Enviando correo electrónico");
+            Console.WriteLine("Enviando correo electrónico");
 
-            _log.WriteInformation( "Correo enviado correctamente");
+            Console.WriteLine("Correo enviado correctamente");
         }
 
         private void Monitor_OnStatusChange(object sender, EventArgs e)
         {
             ChangeEventArgs eventArgs = (ChangeEventArgs)e;
-            _log.WriteWarning("Ha cambiado el estado del monitor {0} a {1}", 
+            Console.WriteLine("Ha cambiado el estado del monitor {0} a {1}",
                 eventArgs.Name, eventArgs.CurrentStatus);
         }
 
-        protected override void OnStop()
+        protected void OnStop()
         {
-            _log.WriteInformation("Deteniendo Servicio");
-            _log.WriteInformation("Cerrando subprocesos...");
+            Console.WriteLine("Deteniendo Servicio");
+            Console.WriteLine("Cerrando subprocesos...");
 
             foreach (KeyValuePair<Thread, NetworkMonitor> monitor in _monitorCollection)
             {
