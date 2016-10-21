@@ -59,7 +59,7 @@ namespace ApplicationTest
         private NetworkMonitor CreateMonitor(IP ip)
         {
             NetworkMonitor monitor = new NetworkMonitor(ip.Address, ip.Port,
-                ConfigManager.Configuration.WaitTime, ConfigManager.Configuration.TimeOut);
+                ConfigManager.Configuration.WaitTime, ConfigManager.Configuration.TimeOut,ip.Name);
 
             monitor.OnStatusChange += Monitor_OnStatusChange;
             monitor.OnConnectionBack += Monitor_OnConnectionBack;

@@ -6,16 +6,16 @@ using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using Data;
-using Data.Interfaces;
+
 
 namespace Services
 {
     public class NetworkMonitor
     {
         #region Fields
-        private ConnectionStatus _currentStatus;
+        private ConnectionStatus _currentStatus = ConnectionStatus.ConnectionOnline;
         private readonly NetworkTest _networkTest;
-        private List<INetTestResult> _results = new List<INetTestResult>();
+        private readonly List<INetTestResult> _results = new List<INetTestResult>();
         private readonly int _timeBetweenTests;
         private readonly int _timeOut;
         private string _testNetworkName;
@@ -78,7 +78,6 @@ namespace Services
         private void TestConnection(ConnectionStatus status)
         {
             var startRetryingTime = DateTime.Now;
-            var retryResults = new List<INetTestResult>();
 
             var nextStatus = ConnectionStatus.ConnectionOffline;
             var testMode = false;
@@ -97,16 +96,16 @@ namespace Services
                 {
                     CurrentStatus = ConnectionStatus.Retrying;
                     startRetryingTime = DateTime.Now;
-                    retryResults.Clear();
+                    _results.Clear();
                 }
                 if (CurrentStatus == ConnectionStatus.Retrying)
                 {
-                    retryResults.Add(testResult);
+                    _results.Add(testResult);
                     if (DateTime.Now.Subtract(startRetryingTime).TotalMilliseconds >= _timeOut &&
                         testResult.Success == testMode)
                     {
                         CurrentStatus = nextStatus;
-                        RaiseEvent(status, retryResults);
+                        RaiseEvent(status, _results);
                     }
                     else if (testResult.Success != testMode)
                     {
