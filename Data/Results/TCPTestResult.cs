@@ -17,7 +17,7 @@ namespace Data
 
         public bool Success
         {
-            get { return Status == IPStatus.Success && TcpTestSuccessed; }
+            get { return TcpTestSuccessed; }
         }
 
         public TcpTestResult(PingTestResult pingResult, int remotePort)
