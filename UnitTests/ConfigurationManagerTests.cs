@@ -42,8 +42,8 @@ namespace UnitTests
             configuration = ConfigManager.Configuration;
 
             // assert
-            Assert.AreEqual(1000, configuration.WaitTimeSeconds);
-            Assert.AreEqual(60000, configuration.TimeOutSeconds);
+            Assert.AreEqual(1, configuration.WaitTimeSeconds);
+            Assert.AreEqual(60, configuration.TimeOutSeconds);
             CollectionAssert.IsNotEmpty(configuration.IpToTest);
             Assert.AreEqual("noreply@airpak-latam.com", configuration.MailConfiguration.SendFrom);
             CollectionAssert.IsNotEmpty(configuration.MailConfiguration.Recipients);

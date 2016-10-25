@@ -20,6 +20,7 @@ namespace Services
             if (config == null)
                 throw new InvalidOperationException("No se pudo obtener la configuración de retorno objeto nulo");
 
+            fileStream.Close();
             return config;
         }
     }
