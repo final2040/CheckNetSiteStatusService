@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.Security;
 using System.Security.Cryptography;
 using System.Text;
@@ -60,7 +59,6 @@ namespace Services
         {
             byte[] result;
             byte[] iv;
-            byte[] buffer;
             byte[] encrypted;
             if (encryptedData == null || encryptedData.Length <= 0)
             {

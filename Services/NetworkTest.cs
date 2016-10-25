@@ -1,11 +1,8 @@
-﻿using Data;
-using System;
-using System.Collections.Generic;
-using System.Linq;
+﻿using System;
 using System.Net.NetworkInformation;
 using System.Net.Sockets;
 using System.Text.RegularExpressions;
-
+using Data;
 
 namespace Services
 {
@@ -20,10 +17,10 @@ namespace Services
         private readonly int _tcpMillisecondsTimeout;
         private string _hostNameOrAddress;
         private readonly int _remotePort;
-        
-        public NetworkTest(string hostNameOrAddress):this(hostNameOrAddress,0,2000){}
 
-        public NetworkTest(string hostNameOrAddress, int remotePort):this(hostNameOrAddress,remotePort,2000) { }
+        public NetworkTest(string hostNameOrAddress) : this(hostNameOrAddress, 0, 2000) { }
+
+        public NetworkTest(string hostNameOrAddress, int remotePort) : this(hostNameOrAddress, remotePort, 2000) { }
 
         public NetworkTest(string hostNameOrAddress, int remotePort, int tcpMillisecondsTimeout)
         {
@@ -53,10 +50,7 @@ namespace Services
             get { return _tcpMillisecondsTimeout; }
         }
 
-        public int RemotePort
-        {
-            get { return _remotePort; }
-        }
+        public int RemotePort => _remotePort;
 
         public virtual PingTestResult TestPing()
         {
@@ -76,15 +70,13 @@ namespace Services
         {
             var pingResult = TestPing();
             var tcpResult = new TcpTestResult(pingResult, _remotePort);
-
-            if (pingResult.Status == IPStatus.Success)
+            
+            using (TcpClient tcpTester = new TcpClient())
             {
-                using (TcpClient tcpTester = new TcpClient())
-                {
-                    IAsyncResult result = tcpTester.BeginConnect(_hostNameOrAddress, _remotePort, null, null);
-                    tcpResult.TcpTestSuccessed = result.AsyncWaitHandle.WaitOne(_tcpMillisecondsTimeout);
-                }
+                IAsyncResult result = tcpTester.BeginConnect(_hostNameOrAddress, _remotePort, null, null);
+                tcpResult.TcpTestSuccessed = result.AsyncWaitHandle.WaitOne(_tcpMillisecondsTimeout);
             }
+
             return tcpResult;
         }
 

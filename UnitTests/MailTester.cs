@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net;
+﻿using System.Net;
 using System.Net.Mail;
-using System.Security;
 using Data;
 using Moq;
 using NUnit.Framework;
@@ -19,13 +16,16 @@ namespace UnitTests
         public void ShouldSendEmail()
         {
             // arrange
+            MailMessage message = new MailMessage();
             Mail mail = new Mail();
             mail.SmtpClient = _mockMail.Object;
-            mail.From = "rene.cruz@airpak-latam.com";
-            mail.Recipients = new List<string>() {"gerardo.mendez@airpak-latam.com", "rene.zamorano@airpak-latam.com"};
-            mail.Subject = "Mensaje del correo";
-            mail.Body = "El cuerpo del correo";
-            mail.IsMessageHtml = false;
+            message.From = new MailAddress("rene.cruz@airpak-latam.com");
+            message.To.Add("gerardo.mendez@airpak-latam.com");
+            message.To.Add("rene.cruz@airpak-latam.com");
+            message.To.Add("rene.zamorano@airpak-latam.com");
+            message.Subject = "Mensaje del correo";
+            message.Body = "El cuerpo del correo";
+            message.IsBodyHtml = false;
             mail.SmtpConfiguration = new SmtpConfiguration();
             mail.SmtpConfiguration.Host = "smtp.gmail.com";
             mail.SmtpConfiguration.Port = 465;
@@ -34,18 +34,13 @@ namespace UnitTests
             mail.SmtpCredentials.UserName = "final20@gmail.com";
             mail.SmtpCredentials.SecurePassword = "rene".ConvertToSecureString();
             
-            _mockMail.Setup(mm => mm.Send(It.IsAny<MailMessage>())).Verifiable();
+            _mockMail.Setup(mm => mm.Send(message)).Verifiable();
             
             // act
-            mail.Send();
+            mail.Send(message);
 
             // assert
             _mockMail.Verify();
-            Assert.AreEqual(2, mail.Message.To.Count);
-            Assert.AreEqual("rene.cruz@airpak-latam.com",mail.Message.From.Address);
-            Assert.AreEqual("Mensaje del correo", mail.Message.Subject);
-            Assert.AreEqual("El cuerpo del correo", mail.Message.Body);
-            Assert.AreEqual(false, mail.Message.IsBodyHtml);
 
             _mockMail.VerifySet(wraper => wraper.Host = "smtp.gmail.com");
             _mockMail.VerifySet(wraper => wraper.Port = 465);

@@ -18,4 +18,6 @@ namespace Data
         public string ConnectionName { get; private set; }
         public List<INetTestResult> NetTestResults { get; private set; }
     }
+
+   
 }

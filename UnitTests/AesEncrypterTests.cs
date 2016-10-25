@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Security;
 using System.Text;
 using Data;
@@ -37,14 +38,15 @@ namespace UnitTests
             // assert
             CollectionAssert.IsNotEmpty(result);
             Assert.IsTrue(result.Length > 5);
+            Debug.Print(Convert.ToBase64String(result));
         }
 
         [Test]
-        public void ShouldReturnUnencryptedText()
+        public void ShouldReturnDecryptedText()
         {
             // arrange
             var key = new Md5Key("una llave", 20);
-            var encryptedData = Convert.FromBase64String("Au8XtzbP1KHq7SMedhcQMYZRcUesYLgPBLxTpxHvg3nB4yywMRFNyrZFZK3AHp6q");
+            var encryptedData = Convert.FromBase64String("kqrcpr8M9DPF4Gm/P2MwnBP6KUC+2aZMGDRk2hsC6nmwLdwK3rRIY+aWnY1XeU9n");
             var expected = "Texto a encriptar";
             AesEncryptor encryptor = new AesEncryptor(key);
            

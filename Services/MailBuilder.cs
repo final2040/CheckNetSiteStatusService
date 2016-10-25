@@ -21,10 +21,10 @@ namespace Services
             get { return _paramList; }
         }
 
-        public MailMessage Build(string hostname, string ip, int port)
+        public MailMessage Build()
         {
             MailMessage message = new MailMessage();;
-            GenerateParameters(hostname, ip, port);
+            GenerateParameters();
             message.From = new MailAddress(_configuration.MailConfiguration.SendFrom);
             AddRecipients(message);
             message.Subject = ParseText(_configuration.MailConfiguration.Subject);
@@ -51,14 +51,11 @@ namespace Services
             return messageSubject;
         }
 
-        private void GenerateParameters(string hostname, string ip, int port)
+        private void GenerateParameters()
         {
             _paramList.Add("sendfrom", _configuration.MailConfiguration.SendFrom);
-            _paramList.Add("timeout", _configuration.TimeOut);
-            _paramList.Add("hostname", hostname);
+            _paramList.Add("timeout", _configuration.TimeOutSeconds);
             _paramList.Add("computername", Environment.MachineName);
-            _paramList.Add("ip", ip);
-            _paramList.Add("port", port);
             _paramList.Add("appname", Assembly.GetExecutingAssembly().GetName().Name);
             _paramList.Add("appversion", new AssemblyName(Assembly.GetExecutingAssembly().FullName).Version);
         }

@@ -56,7 +56,7 @@ namespace Services
 
         private static Configuration Deserialize(string xmlConfigPath)
         {
-            return new XMLHelper().GetConfig(xmlConfigPath);
+            return new XmlHelper().GetConfig(xmlConfigPath);
         }
     }
 }

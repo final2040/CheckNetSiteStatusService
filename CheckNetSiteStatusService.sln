@@ -15,6 +15,8 @@ Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "Setup", "Setup\Setup.vdproj
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ApplicationTest", "ApplicationTest\ApplicationTest.csproj", "{647456C0-C795-427F-B75E-0193339448D0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "GeneratePassword", "GeneratePassword\GeneratePassword.csproj", "{32E57B68-6633-4895-8ADB-7DF510E9C049}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -44,6 +46,10 @@ Global
 		{647456C0-C795-427F-B75E-0193339448D0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{647456C0-C795-427F-B75E-0193339448D0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{647456C0-C795-427F-B75E-0193339448D0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{32E57B68-6633-4895-8ADB-7DF510E9C049}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{32E57B68-6633-4895-8ADB-7DF510E9C049}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{32E57B68-6633-4895-8ADB-7DF510E9C049}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{32E57B68-6633-4895-8ADB-7DF510E9C049}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

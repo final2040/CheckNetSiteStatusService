@@ -42,13 +42,13 @@ namespace UnitTests
             configuration = ConfigManager.Configuration;
 
             // assert
-            Assert.AreEqual(2000, configuration.WaitTime);
-            Assert.AreEqual(120000, configuration.TimeOut);
+            Assert.AreEqual(1000, configuration.WaitTimeSeconds);
+            Assert.AreEqual(60000, configuration.TimeOutSeconds);
             CollectionAssert.IsNotEmpty(configuration.IpToTest);
             Assert.AreEqual("noreply@airpak-latam.com", configuration.MailConfiguration.SendFrom);
             CollectionAssert.IsNotEmpty(configuration.MailConfiguration.Recipients);
-            Assert.AreEqual("El subject del mail", configuration.MailConfiguration.Subject);
-            Assert.AreEqual("el cuerpo del mail bla bla bla", configuration.MailConfiguration.Body);
+            Assert.AreEqual("Se ha {status} la conexion con {hostname}", configuration.MailConfiguration.Subject);
+            Assert.AreEqual("\n      El equipo {computername} ha perdido la coneccion con el equipo {hostname} con {ip} en el puerto {port} durante mas de {timeout} segundos.\n\n      Favor de verificar el estado de la conexión.\n\n      {testresults}\n    ", configuration.MailConfiguration.Body);
             Assert.AreEqual(false, configuration.MailConfiguration.IsHtml);
             Assert.AreEqual("olga", configuration.MailConfiguration.SmtpCredentials.UserName);
             Assert.AreEqual("algo", configuration.MailConfiguration.SmtpCredentials.Password);
@@ -62,8 +62,8 @@ namespace UnitTests
         {
             // arrange
             var configuration = new Configuration();
-            configuration.TimeOut = 120000;
-            configuration.WaitTime = 2000;
+            configuration.TimeOutSeconds = 120000;
+            configuration.WaitTimeSeconds = 2000;
             configuration.IpToTest = new List<IP>()
             {
                 new IP() {Address = "172.28.129.100", Name = "test",Port = 8080},
@@ -94,8 +94,8 @@ namespace UnitTests
         {
             // arrange
             var configuration = new Configuration();
-            configuration.TimeOut = 120000;
-            configuration.WaitTime = 2000;
+            configuration.TimeOutSeconds = 120000;
+            configuration.WaitTimeSeconds = 2000;
             configuration.IpToTest = new List<IP>()
             {
                 new IP() {Address = "172.28.129.100", Name = "test",Port = 5656323},

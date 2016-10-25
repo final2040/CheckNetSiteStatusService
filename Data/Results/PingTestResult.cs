@@ -6,6 +6,7 @@ namespace Data
 {
     public class PingTestResult : INetTestResult
     {
+        private DateTime _testDateTime = DateTime.Now;
 
         public PingTestResult():this(0,string.Empty,0,0){}
 
@@ -15,7 +16,6 @@ namespace Data
             Host = host;
             Time = time;
             Ttl = ttl;
-            TestDateTime = DateTime.Now;
         }
 
         public PingTestResult(string host, IPStatus status)
@@ -29,7 +29,12 @@ namespace Data
         public IPStatus Status { get; set; }
         public long Time { get; set; }
         public int Ttl { get; set; }
-        public DateTime TestDateTime { get; protected set; }
+
+        public DateTime TestDateTime
+        {
+            get { return _testDateTime; }
+            protected set { _testDateTime = value; }
+        }
 
         public bool Success
         {
@@ -67,7 +72,7 @@ namespace Data
             {
                 return string.Format("{0} Respuesta desde {1}: bytes={2} tiempo={3}ms TTL={4}", TestDateTime.ToString("G"), Host, Bytes, Time, Ttl);
             }
-            return String.Format("No se pudo conectar al host {0}, {1}", Host, Status);
+            return String.Format("{0} No se pudo conectar al host {1}, {2}", TestDateTime.ToString("G"), Host, Status);
 
         }
     }

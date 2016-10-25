@@ -40,8 +40,9 @@
             // ServiceInstaller
             // 
             this.ServiceInstaller.Description = "Monitorea el esado de las conexiones de red";
-            this.ServiceInstaller.DisplayName = "NetCheckerService1";
-            this.ServiceInstaller.ServiceName = "NetCheckerService1";
+            this.ServiceInstaller.DisplayName = "NetMonitor";
+            this.ServiceInstaller.ServiceName = "NetMonitor";
+            this.ServiceInstaller.StartType = System.ServiceProcess.ServiceStartMode.Automatic;
             this.ServiceInstaller.AfterInstall += new System.Configuration.Install.InstallEventHandler(this.ServiceInstaller_AfterInstall);
             // 
             // ProjectInstaller

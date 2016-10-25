@@ -9,10 +9,10 @@ namespace Data
     public class Configuration
     {
         [Required(ErrorMessage = "Debe de proporcionar un tiempo de espera")]
-        public int WaitTime { get; set; }
+        public int WaitTimeSeconds { get; set; }
 
         [Required(ErrorMessage = "Debe de proporcionar un tiempo limite")]
-        public int TimeOut { get; set; }
+        public int TimeOutSeconds { get; set; }
 
         [Required(ErrorMessage = "Debe proporcionar por lo menos una ip para probar")]
         [ValidateCollection(ErrorMessage = "Error validando lista de Ips en indice {1}")]

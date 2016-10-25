@@ -1,8 +1,9 @@
 ﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
+using Data;
 
-namespace Data
+namespace Services
 {
     public class ValidationHelper
     {

@@ -23,9 +23,11 @@ namespace UnitTests
             // arrange
             MailBuilder mailBuilder = new MailBuilder(ConfigManager.Configuration);
             List<INetTestResult> results = new List<INetTestResult>() { new PingTestResult(32, "172.28.129.100", 0, 128) };
-
+            mailBuilder.Params.Add("ip","172.28.129.100");
+            mailBuilder.Params.Add("hostname", "Connection1");
+            mailBuilder.Params.Add("port",8080);
             // act
-            MailMessage result = mailBuilder.Build("Connection1", "172.28.129.100", 8080);
+            MailMessage result = mailBuilder.Build();
 
             // assert
             Assert.AreEqual(new MailAddress("noreply@airpak-latam.com"), result.From);
@@ -43,9 +45,11 @@ namespace UnitTests
             MailBuilder mailBuilder = new MailBuilder(ConfigManager.Configuration);
             List<INetTestResult> results = new List<INetTestResult>() { new PingTestResult(32, "172.28.129.100", 0, 128) };
             mailBuilder.AddParam("status", "perdido");
-            
+            mailBuilder.Params.Add("ip", "172.28.129.100");
+            mailBuilder.Params.Add("hostname", "Connection1");
+            mailBuilder.Params.Add("port", 8080);
             // act
-            MailMessage result = mailBuilder.Build("Connection1", "172.28.129.100", 8080);
+            MailMessage result = mailBuilder.Build();
 
             // assert
             Assert.AreEqual(new MailAddress("noreply@airpak-latam.com"), result.From);

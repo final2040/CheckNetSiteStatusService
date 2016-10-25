@@ -1,12 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Runtime.Remoting.Channels;
-using System.Text;
 using System.Threading;
-using System.Threading.Tasks;
 using Data;
-
 
 namespace Services
 {
@@ -14,11 +9,10 @@ namespace Services
     {
         #region Fields
         private ConnectionStatus _currentStatus = ConnectionStatus.ConnectionOnline;
-        private readonly NetworkTest _networkTest;
         private readonly List<INetTestResult> _results = new List<INetTestResult>();
         private readonly int _timeBetweenTests;
         private readonly int _timeOut;
-        private string _testNetworkName;
+        private readonly string _testNetworkName;
         private const string DEFAULT_NAME = "TestSite";
         private const int DEFAULT_TIME_BETWEEN_TESTS = 2000;
         private const int DEFAULT_TIMEOUT = 120000;
@@ -31,8 +25,9 @@ namespace Services
         #endregion
 
         #region Properties
-        public NetworkTest NetworkTest { get { return _networkTest; } }
-        public int TimeBetweenTests { get { return _timeBetweenTests; } }
+        public NetworkTest NetworkTest { get; }
+        public int TimeBetweenTests => _timeBetweenTests;
+
         public ConnectionStatus CurrentStatus
         {
             get { return _currentStatus; }
@@ -61,7 +56,7 @@ namespace Services
         public NetworkMonitor(NetworkTest tester, int timeBetweenTests, int timeOut, string testNetworkName)
         {
             _testNetworkName = testNetworkName;
-            _networkTest = tester;
+            NetworkTest = tester;
             _timeBetweenTests = timeBetweenTests;
             _timeOut = timeOut;
         }
