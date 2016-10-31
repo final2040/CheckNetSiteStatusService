@@ -14,7 +14,9 @@ namespace Data
 
         [Required(ErrorMessage = "Debe proporcionar por lo menos una ip para probar")]
         [ValidateCollection(ErrorMessage = "Error validando lista de Ips en indice {1}")]
-        public List<IP> IpToTest { get; set; }
+        [XmlArrayItem("TCP", typeof(TcpTestConfiguration))]
+        [XmlArrayItem("IP", typeof(PingTestConfiguration))]
+        public List<TestConfigurationBase> Tests { get; set; }
 
         [Required(ErrorMessage = "Debe de proporcionar una configuración de correo electrónico")]
         [ValidateObject(ErrorMessage = "Ocurrieron errores al validar {0}")]
@@ -48,23 +50,5 @@ namespace Data
         [Required(ErrorMessage = "Debe de proporcionar las configuraciones del servidor smtp")]
         [ValidateObject(ErrorMessage = "Ocurrieron errores al validar las configuraciones del servidor smtp:")]
         public SmtpConfiguration SmtpConfiguration { get; set; }
-    }
-    [Serializable]
-    public class IP
-    {
-        [XmlAttribute]
-        [Required(ErrorMessage = "Debe de proporcionar una dirección IP")]
-        [RegularExpression("^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$", 
-            ErrorMessage = "El formato de la ip no es válido debe de coincidir con la mascara xxx.xxx.xxx.xxx")]
-        public string Address { get; set; }
-
-        [XmlAttribute]
-        [Range(0, 65535, ErrorMessage = "El valor del puerto es inválido debe de ser entre 0 y 65535")]
-        public int Port { get; set; }
-
-        [XmlText]
-        [Required(ErrorMessage = "Debe de proporcionar un Nombre para la conexion")]
-        [MaxLength(80, ErrorMessage = "El nombre no puede exceder los 80 carácteres")]
-        public string Name { get; set; }
     }
 }

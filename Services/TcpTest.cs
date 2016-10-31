@@ -25,6 +25,11 @@ namespace Services
         /// <summary>
         /// Crea un a instancia del objeto TcpTest
         /// </summary>
+        public TcpTest(TcpTestConfiguration configuration) : this(configuration.Host, configuration.Port, configuration.TimeOutMilliSeconds) { }
+
+        /// <summary>
+        /// Crea un a instancia del objeto TcpTest
+        /// </summary>
         /// <param name="hostNameOrAddress">Dirección del host a probar.</param>
         /// <param name="remoteTcpPort">Puerto TCP remoto que se probará.</param>
         /// <param name="tcpMillisecondsTimeout">Tiempo máximo de respuesta.</param>
@@ -34,12 +39,13 @@ namespace Services
             {
                 throw new ArgumentException("El número de puerto no es valido debe de ser entre: 1 y 65535");
             }
+
+            _tcpMillisecondsTimeout = tcpMillisecondsTimeout == 0 ? DEFAULT_TIMEOUT : tcpMillisecondsTimeout;
             _hostNameOrAddress = hostNameOrAddress;
             _remoteTcpPort = remoteTcpPort;
-            _tcpMillisecondsTimeout = tcpMillisecondsTimeout;
             _ping = new PingTest(_hostNameOrAddress);
         }
-
+        
         /// <summary>
         /// Propiedad que obtiene o Establece el tiempo de espera máximo para la conexión TCP.
         /// </summary>

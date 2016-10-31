@@ -107,12 +107,12 @@ namespace CheckNetSiteStatusService
             _log.WriteInformation("Creando subprocesos");
             try
             {
-                foreach (IP ip in _configuration.IpToTest)
+                foreach (var testConfig in _configuration.Tests)
                 {
-                    _log.WriteInformation("Creando monitor para: {0} ip: {1} puerto: {2}",
-                        ip.Name, ip.Address, ip.Port);
+                    _log.WriteInformation("Creando monitor para: {0}",
+                        testConfig.ToString());
 
-                    var monitor = CreateMonitor(ip);
+                    var monitor = CreateMonitor(testConfig);
                     Thread thread = new Thread(monitor.Start);
                     thread.Start();
 
@@ -129,10 +129,9 @@ namespace CheckNetSiteStatusService
             }
         }
         
-        private NetworkMonitor CreateMonitor(IP ip)
+        private NetworkMonitor CreateMonitor(TestConfigurationBase testConfiguration)
         {
-            NetworkMonitor monitor = new NetworkMonitor(ip.Address, ip.Port,
-                _configuration.TestConfig.WaitTimeSeconds * 1000, _configuration.TestConfig.TimeOutSeconds * 1000, ip.Name);
+            NetworkMonitor monitor = new NetworkMonitor(TestFactory.CreateInstance(testConfiguration), _configuration.TestConfig,testConfiguration.Name);
 
             monitor.OnStatusChange += Monitor_OnStatusChange;
             monitor.OnConnectionBack += Monitor_OnConnectionBack;

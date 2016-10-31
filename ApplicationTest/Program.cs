@@ -102,7 +102,7 @@ namespace ApplicationTest
             Console.WriteLine("Creando subprocesos");
             try
             {
-                foreach (IP ip in _configuration.IpToTest)
+                foreach (IP ip in _configuration.Tests)
                 {
                     Console.WriteLine("Creando monitor para: {0} ip: {1} puerto: {2}",
                         ip.Name, ip.Address, ip.Port);

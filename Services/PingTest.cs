@@ -7,8 +7,6 @@ namespace Services
 {
     public class PingTest : INetworkTest
     {
-        private const string IP_REGEX = "^(?:(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-9][0-9]?)$";
-
         private readonly Ping _ping = new Ping();
         private string _hostNameOrAddress;
 
@@ -16,6 +14,8 @@ namespace Services
         {
             _hostNameOrAddress = hostNameOrAddress;
         }
+
+        public PingTest(PingTestConfiguration configuration):this(configuration.Host){}
 
         /// <summary>
         /// Propiedad que obtiene o Establece el host a probar.

@@ -5,11 +5,11 @@
     <TimeOutSeconds>40</TimeOutSeconds>
   </TestConfig>
   
-  <IpToTest>
-    <IP Address="172.28.129.100" Port="8080">ARCHIVOS AIFCOMX</IP>
-    <IP Address="172.28.129.33">AIFCOMX028</IP>
-    <IP Address="172.28.129.53">Compu de Jerry</IP>
-  </IpToTest>
+  <Tests>
+    <TCP Host="172.28.129.100" Port="8080">ARCHIVOS AIFCOMX</TCP>
+    <IP Host="172.28.129.33">AIFCOMX028</IP>
+    <IP Host="172.28.129.53">Compu de Jerry</IP>
+  </Tests>
   
   <MailConfiguration>
     <SendFrom>noreply@airpak-latam.com</SendFrom>

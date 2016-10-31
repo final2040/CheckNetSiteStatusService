@@ -44,7 +44,10 @@ namespace UnitTests
             // assert
             Assert.AreEqual(1, configuration.TestConfig.WaitTimeSeconds);
             Assert.AreEqual(60, configuration.TestConfig.TimeOutSeconds);
-            CollectionAssert.IsNotEmpty(configuration.IpToTest);
+            CollectionAssert.IsNotEmpty(configuration.Tests);
+            Assert.IsInstanceOf(typeof(TcpTestConfiguration), configuration.Tests[0]);
+            Assert.IsInstanceOf(typeof(PingTestConfiguration), configuration.Tests[1]);
+            Assert.IsInstanceOf(typeof(PingTestConfiguration), configuration.Tests[2]);
             Assert.AreEqual("noreply@airpak-latam.com", configuration.MailConfiguration.SendFrom);
             CollectionAssert.IsNotEmpty(configuration.MailConfiguration.Recipients);
             Assert.AreEqual("Se ha {status} la conexion con {hostname}", configuration.MailConfiguration.Subject);
@@ -67,10 +70,10 @@ namespace UnitTests
                 TimeOutSeconds = 120000,
                 WaitTimeSeconds = 2000
             };
-            configuration.IpToTest = new List<IP>()
+            configuration.Tests = new List<TestConfigurationBase>()
             {
-                new IP() {Address = "172.28.129.100", Name = "test",Port = 8080},
-                new IP() {Address = "192.168.0.101",Name = "Soma"}
+                new TcpTestConfiguration() {Host = "172.28.129.100", Name = "test",Port = 8080},
+                new PingTestConfiguration() {Host = "192.168.0.101",Name = "Soma"}
             };
             configuration.MailConfiguration = new MailConfiguration()
             {
@@ -102,10 +105,10 @@ namespace UnitTests
                 TimeOutSeconds = 120000,
                 WaitTimeSeconds = 2000
             };
-            configuration.IpToTest = new List<IP>()
+            configuration.Tests = new List<TestConfigurationBase>()
             {
-                new IP() {Address = "172.28.129.100", Name = "test",Port = 5656323},
-                new IP() {Address = "1",Name = "Soma"}
+                new TcpTestConfiguration() {Host = "172.28.129.100", Name = "test",Port = 5656323},
+                new PingTestConfiguration() {Host = "1",Name = "Soma"}
             };
             configuration.MailConfiguration = new MailConfiguration()
             {

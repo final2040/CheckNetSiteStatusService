@@ -52,6 +52,7 @@ namespace Services
         public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds) : this(new TcpTest(ip, port), timeBetweenTests, timeUntilFailSeconds,  DEFAULT_NAME) { }
         public NetworkMonitor(INetworkTest tester) : this(tester, DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
+        public NetworkMonitor(INetworkTest tester, TestConfig testConfiguration, string testName) : this(tester, testConfiguration.WaitTimeSeconds, testConfiguration.TimeOutSeconds,testName) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests, string name) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, name) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests, int timeOut, string testNetworkName)
         {

@@ -58,6 +58,7 @@
     <Compile Include="ConvertToSecureStringExtension.cs" />
     <Compile Include="SmtpClientWraper.cs" />
     <Compile Include="TcpTest.cs" />
+    <Compile Include="TestFactory.cs" />
     <Compile Include="ValidationHelper.cs" />
     <Compile Include="XMLHelper.cs" />
   </ItemGroup>
