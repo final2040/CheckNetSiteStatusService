@@ -127,7 +127,7 @@ namespace ApplicationTest
         private NetworkMonitor CreateMonitor(IP ip)
         {
             NetworkMonitor monitor = new NetworkMonitor(ip.Address, ip.Port,
-                _configuration.WaitTimeSeconds * 1000, _configuration.TimeOutSeconds * 1000,ip.Name);
+                _configuration.TestConfig.WaitTimeSeconds * 1000, _configuration.TestConfig.TimeOutSeconds * 1000,ip.Name);
 
             monitor.OnStatusChange += Monitor_OnStatusChange;
             monitor.OnConnectionBack += Monitor_OnConnectionBack;

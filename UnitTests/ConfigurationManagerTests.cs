@@ -42,8 +42,8 @@ namespace UnitTests
             configuration = ConfigManager.Configuration;
 
             // assert
-            Assert.AreEqual(1, configuration.WaitTimeSeconds);
-            Assert.AreEqual(60, configuration.TimeOutSeconds);
+            Assert.AreEqual(1, configuration.TestConfig.WaitTimeSeconds);
+            Assert.AreEqual(60, configuration.TestConfig.TimeOutSeconds);
             CollectionAssert.IsNotEmpty(configuration.IpToTest);
             Assert.AreEqual("noreply@airpak-latam.com", configuration.MailConfiguration.SendFrom);
             CollectionAssert.IsNotEmpty(configuration.MailConfiguration.Recipients);
@@ -62,8 +62,11 @@ namespace UnitTests
         {
             // arrange
             var configuration = new Configuration();
-            configuration.TimeOutSeconds = 120000;
-            configuration.WaitTimeSeconds = 2000;
+            configuration.TestConfig = new TestConfig
+            {
+                TimeOutSeconds = 120000,
+                WaitTimeSeconds = 2000
+            };
             configuration.IpToTest = new List<IP>()
             {
                 new IP() {Address = "172.28.129.100", Name = "test",Port = 8080},
@@ -94,8 +97,11 @@ namespace UnitTests
         {
             // arrange
             var configuration = new Configuration();
-            configuration.TimeOutSeconds = 120000;
-            configuration.WaitTimeSeconds = 2000;
+            configuration.TestConfig = new TestConfig
+            {
+                TimeOutSeconds = 120000,
+                WaitTimeSeconds = 2000
+            };
             configuration.IpToTest = new List<IP>()
             {
                 new IP() {Address = "172.28.129.100", Name = "test",Port = 5656323},

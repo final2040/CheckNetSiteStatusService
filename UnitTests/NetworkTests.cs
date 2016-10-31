@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Diagnostics;
 using System.Net.NetworkInformation;
-using System.Security;
 using NUnit.Framework;
-using Moq;
 using Services;
 using Data;
 
@@ -16,10 +14,10 @@ namespace UnitTests
         public void ShouldReturnSuccessOnHostUp()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100");
+            var network = new PingTest("172.28.129.100");
             
             // act
-            var currentResult = network.TestPing();
+            var currentResult = network.Test();
 
             // assert
             Debug.Print(currentResult.ToString());
@@ -30,10 +28,10 @@ namespace UnitTests
         public void ShouldReturnUnreachableOnHostDown()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.225");
+            var network = new PingTest("172.28.129.225");
 
             // act
-            var currentResult = network.TestPing();
+            var currentResult = network.Test();
 
             // assert
             Debug.Print(currentResult.ToString());
@@ -44,10 +42,10 @@ namespace UnitTests
         public void ShouldReturnTcpTestResultsObject()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100",80);
+            var network = new TcpTest("172.28.129.100",80);
 
             // act
-            var result = network.TestTcpPort();
+            var result = network.Test();
 
             // assert
             Debug.Print(result.ToString());
@@ -58,67 +56,35 @@ namespace UnitTests
         public void ShouldReturnTcpTestSuccessOnOpenPort()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100", 8080);
+            var network = new TcpTest("172.28.129.100", 8080);
 
             // act
-            var result = network.TestTcpPort();
+            var result = network.Test();
 
             // assert
             Debug.Print(result.ToString());
-            Assert.IsTrue(result.TcpTestSuccessed);
+            Assert.IsTrue(((TcpTestResult)result).TcpTestSuccessed);
         }
 
         [Test]
         public void ShouldReturnTcpTestSuccessFalseOnClosedPort()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100", 123);
+            var network = new TcpTest("172.28.129.100", 123);
 
             // act
-            var result = network.TestTcpPort();
+            var result = network.Test();
 
             // assert
             Debug.Print(result.ToString());
-            Assert.IsFalse(result.TcpTestSuccessed);
-        }
-
-        [Test]
-        [ExpectedException(typeof (ArgumentException))]
-        [TestCase("172.28.129.257")]
-        [TestCase("257.28.129.0")]
-        [TestCase("172.999.129.0")]
-        [TestCase("172.28.777.0")]
-        public void ShouldRaiseExceptionOnInvalidIp(string ip)
-        {
-            // arrange
-            NetworkTest networkTest = new NetworkTest(ip);
-
-            // act
-
-            // assert
-        }
-
-        [Test]
-        [ExpectedException(typeof(ArgumentException))]
-        [TestCase(-25)]
-        [TestCase(999999)]
-        [TestCase(65536)]
-        [TestCase(-1)]
-        public void ShouldRaiseExceptionOnInvalidPort(int remotePort)
-        {
-            // arrange
-            NetworkTest networkTest = new NetworkTest("172.28.129.100", remotePort);
-
-            // act
-
-            // assert
+            Assert.IsFalse(((TcpTestResult)result).TcpTestSuccessed);
         }
 
         [Test]
         public void ShouldReturnTcpTestResultsObject1()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100", 80);
+            var network = new TcpTest("172.28.129.100", 80);
 
             // act
             var result = network.Test();
@@ -132,7 +98,7 @@ namespace UnitTests
         public void ShouldReturnPingTestResultsObject1()
         {
             // arrange
-            var network = new NetworkTest("172.28.129.100");
+            var network = new PingTest("172.28.129.100");
 
             // act
             var result = network.Test();

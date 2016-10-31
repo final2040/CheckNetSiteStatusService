@@ -14,7 +14,7 @@ namespace UnitTests
     {
         private PingTestResult _successPingResult;
         private PingTestResult _unsuccessPingResult;
-        private Mock<NetworkTest> _networkTesterMock;
+        private Mock<PingTest> _networkTesterMock;
 
         [SetUp]
         public void Setup()
@@ -36,7 +36,7 @@ namespace UnitTests
                 Ttl = 128
             };
 
-            _networkTesterMock = new Mock<NetworkTest>("172.28.129.100", 8080);
+            _networkTesterMock = new Mock<PingTest>("172.28.129.100");
         }
 
         [Test]

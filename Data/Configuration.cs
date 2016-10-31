@@ -8,11 +8,9 @@ namespace Data
     [Serializable]
     public class Configuration
     {
-        [Required(ErrorMessage = "Debe de proporcionar un tiempo de espera")]
-        public int WaitTimeSeconds { get; set; }
-
-        [Required(ErrorMessage = "Debe de proporcionar un tiempo limite")]
-        public int TimeOutSeconds { get; set; }
+        [Required(ErrorMessage = "Debe proporcionar la configuración de las pruebas de conexión")]
+        [ValidateObject(ErrorMessage = "Ocurrieron errores al validar {0}")]
+        public TestConfig TestConfig { get; set; }
 
         [Required(ErrorMessage = "Debe proporcionar por lo menos una ip para probar")]
         [ValidateCollection(ErrorMessage = "Error validando lista de Ips en indice {1}")]
@@ -21,6 +19,8 @@ namespace Data
         [Required(ErrorMessage = "Debe de proporcionar una configuración de correo electrónico")]
         [ValidateObject(ErrorMessage = "Ocurrieron errores al validar {0}")]
         public MailConfiguration MailConfiguration { get; set; }
+
+        
     }
     [Serializable]
     public class MailConfiguration

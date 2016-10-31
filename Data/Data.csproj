@@ -56,6 +56,7 @@
     <Compile Include="EventArgs\TestNetworkEventArgs.cs" />
     <Compile Include="Attributes\ValidateCollection.cs" />
     <Compile Include="Attributes\ValidateObject.cs" />
+    <Compile Include="TestConfig.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
