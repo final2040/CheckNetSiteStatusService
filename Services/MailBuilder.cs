@@ -56,7 +56,7 @@ namespace Services
             _paramList.Add("sendfrom", _configuration.MailConfiguration.SendFrom);
             _paramList.Add("timeout", _configuration.TimeOutSeconds);
             _paramList.Add("computername", Environment.MachineName);
-            _paramList.Add("appname", Assembly.GetExecutingAssembly().GetName().Name);
+            _paramList.Add("appname", "DreamSoft Network Monitor");
             _paramList.Add("appversion", new AssemblyName(Assembly.GetExecutingAssembly().FullName).Version);
         }
 

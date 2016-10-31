@@ -12,8 +12,7 @@ namespace CheckNetSiteStatusService
         /// </summary>
         static void Main()
         {
-            ServiceBase[] ServicesToRun;
-            ServicesToRun = new ServiceBase[]
+            var ServicesToRun = new ServiceBase[]
             {
                 new NetChecker()
             };

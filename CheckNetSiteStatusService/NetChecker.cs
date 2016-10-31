@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
 using System.ServiceProcess;
 using System.Threading;
@@ -145,15 +146,8 @@ namespace CheckNetSiteStatusService
 
             _log.WriteInformation("Se ha {0} la conección con el host: {1} ip: {2} puerto: {3}",
                 @event, eventArgs.ConnectionName, eventArgs.Ip, eventArgs.Port);
-
-            StringBuilder stringBuilder = new StringBuilder();
-
-            string testResults = "";
-            foreach (var netTestResult in eventArgs.NetTestResults)
-            {
-                stringBuilder.AppendLine(netTestResult.ToString() + Environment.NewLine);
-            }
-            testResults = stringBuilder.ToString();
+            
+            var testResults = PrintResults(eventArgs);
 
             _log.WriteInformation("Enviando correo electrónico");
             MailBuilder builder = new MailBuilder(_configuration);
@@ -173,6 +167,21 @@ namespace CheckNetSiteStatusService
             {
                 _log.WriteError("Ocurrío un error al envíar el correo electronico {0} \r\n{1}", ex.Message, ex.StackTrace);
             }
+        }
+
+        private string PrintResults(TestNetworkEventArgs eventArgs)
+        {
+            StringBuilder stringBuilder = new StringBuilder();
+
+            eventArgs.NetTestResults.Reverse();
+            var results = eventArgs.NetTestResults.Take(10);
+
+            foreach (var netTestResult in results.Reverse())
+            {
+                stringBuilder.AppendLine(netTestResult.ToString() + Environment.NewLine);
+            }
+
+            return stringBuilder.ToString();
         }
 
         private NetworkCredential GetCredentials()
