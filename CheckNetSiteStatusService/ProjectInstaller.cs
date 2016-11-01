@@ -1,24 +1,22 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.Configuration.Install;
-using System.Linq;
-using System.Threading.Tasks;
+using System.ServiceProcess;
 
 namespace CheckNetSiteStatusService
 {
     [RunInstaller(true)]
-    public partial class ProjectInstaller : System.Configuration.Install.Installer
+    public partial class ProjectInstaller : Installer
     {
         public ProjectInstaller()
         {
             InitializeComponent();
+            this.AfterInstall += ServiceInstaller_AfterInstall;
         }
 
         private void ServiceInstaller_AfterInstall(object sender, InstallEventArgs e)
         {
-
+            ServiceController serviceController = new ServiceController("NetMonitor");
+            serviceController.Start();
         }
     }
 }

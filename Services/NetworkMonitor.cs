@@ -25,7 +25,7 @@ namespace Services
         #endregion
 
         #region Properties
-        public INetworkTest TestPing { get; set; }
+        public INetworkTest NetworkTest { get; set; }
         public int TimeBetweenTests => _timeBetweenTests;
 
         public ConnectionStatus CurrentStatus
@@ -52,12 +52,12 @@ namespace Services
         public NetworkMonitor(string ip, int port, int timeBetweenTests, int timeUntilFailSeconds) : this(new TcpTest(ip, port), timeBetweenTests, timeUntilFailSeconds,  DEFAULT_NAME) { }
         public NetworkMonitor(INetworkTest tester) : this(tester, DEFAULT_TIME_BETWEEN_TESTS, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, DEFAULT_NAME) { }
-        public NetworkMonitor(INetworkTest tester, TestConfig testConfiguration, string testName) : this(tester, testConfiguration.WaitTimeSeconds, testConfiguration.TimeOutSeconds,testName) { }
+        public NetworkMonitor(INetworkTest tester, TestConfig testConfiguration, string testName) : this(tester, testConfiguration.WaitTimeSeconds * 1000, testConfiguration.TimeOutSeconds * 1000,testName) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests, string name) : this(tester, timeBetweenTests, DEFAULT_TIMEOUT, name) { }
         public NetworkMonitor(INetworkTest tester, int timeBetweenTests, int timeOut, string testNetworkName)
         {
             _testNetworkName = testNetworkName;
-            TestPing = tester;
+            NetworkTest = tester;
             _timeBetweenTests = timeBetweenTests;
             _timeOut = timeOut;
         }
@@ -86,7 +86,7 @@ namespace Services
 
             while (CurrentStatus != nextStatus)
             {
-                var testResult = TestPing.Test();
+                var testResult = NetworkTest.Test();
                
                 if (testResult.Success == testMode && _currentStatus == status)
                 {
@@ -117,11 +117,11 @@ namespace Services
         {
             if (status == ConnectionStatus.ConnectionOnline)
             {
-                OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults,TestPing.HostNameOrAddress,0));
+                OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults,NetworkTest.HostNameOrAddress, NetworkTest.TestConfiguration.ToString()));
             }
             else
             {
-                OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults, TestPing.HostNameOrAddress,0));
+                OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults,NetworkTest.HostNameOrAddress, NetworkTest.TestConfiguration.ToString()));
             }
         }
     }

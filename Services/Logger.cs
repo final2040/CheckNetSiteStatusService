@@ -9,7 +9,7 @@ namespace Services
     public class Logger
     {
         private static Logger _me;
-        private FileWrapper _fileWrapper = new FileWrapper();
+        private ILogWriter _logWriter = new FileLogWriter();
 
         private string _logPath = Path.Combine(Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location),
             "netmonitorservice.log");
@@ -18,10 +18,10 @@ namespace Services
 
         private Logger() { }
 
-        public FileWrapper FileWrapper
+        public ILogWriter LogWriter
         {
-            get { return _fileWrapper; }
-            set { _fileWrapper = value; }
+            get { return _logWriter; }
+            set { _logWriter = value; }
         }
 
         public string LogPath { get { return _logPath; } set { _logPath = value; } }
@@ -51,7 +51,7 @@ namespace Services
         public void Write(LogType type, string message)
         {
             string logMessage = string.Format(Template, DateTime.Now.ToString(TimeFormatTemplate), type.ToString().ToUpper(), message);
-            _fileWrapper.AppendAllText(LogPath, logMessage, Encoding.UTF8);
+            _logWriter.Write(LogPath, logMessage, Encoding.UTF8);
         }
         public void Write(LogType type, string formatedMessage, params object[] args)
         {

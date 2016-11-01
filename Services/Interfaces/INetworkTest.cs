@@ -6,5 +6,6 @@ namespace Services
     {
         string HostNameOrAddress { get; set; }
         INetTestResult Test();
+        TestConfigurationBase TestConfiguration { get; }
     }
 }

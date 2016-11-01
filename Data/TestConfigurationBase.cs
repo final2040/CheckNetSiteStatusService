@@ -10,7 +10,7 @@ namespace Data
         public string Host { get; set; }
 
         [Required(ErrorMessage = "Debe de especificar un nombre para este host.")]
-        [StringLength(25, ErrorMessage = "El nombre del host no debe de exceder los 25 carácteres.")]
+        [StringLength(255, ErrorMessage = "El nombre del host no debe de exceder los 25 carácteres.")]
         [XmlText]
         public string Name { get; set; }
     }

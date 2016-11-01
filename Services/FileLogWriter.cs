@@ -3,9 +3,9 @@ using System.Text;
 
 namespace Services
 {
-    public class FileWrapper
+    public class FileLogWriter : ILogWriter
     {
-        public virtual void AppendAllText(string path, string contents, Encoding encoding)
+        public virtual void Write(string path, string contents, Encoding encoding)
         {
             File.AppendAllText(path,contents,encoding);
         }

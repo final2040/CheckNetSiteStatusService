@@ -4,7 +4,7 @@
     {
         public override string ToString()
         {
-            return $"Configuración ping Host:{Host}";
+            return $"PingTest\r\nNombre: {Name}\r\nHost: {Host}";
         }
     }
 }

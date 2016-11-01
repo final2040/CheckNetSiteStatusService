@@ -25,7 +25,11 @@ namespace Services
         /// <summary>
         /// Crea un a instancia del objeto TcpTest
         /// </summary>
-        public TcpTest(TcpTestConfiguration configuration) : this(configuration.Host, configuration.Port, configuration.TimeOutMilliSeconds) { }
+        public TcpTest(TcpTestConfiguration configuration)
+            : this(configuration.Host, configuration.Port, configuration.TimeOutMilliSeconds)
+        {
+            TestConfiguration = configuration;
+        }
 
         /// <summary>
         /// Crea un a instancia del objeto TcpTest
@@ -96,5 +100,7 @@ namespace Services
             
             return tcpResult;
         }
+
+        public TestConfigurationBase TestConfiguration { get; }
     }
 }

@@ -15,7 +15,7 @@ namespace Data
 
         public override string ToString()
         {
-            return $"Configuración TCPTest Nombre: {Name}, Host: {Host}, Puerto: {Port}, TimeOut: {TimeOutMilliSeconds}";
+            return $"TCPTest\r\nNombre: {Name}\r\nHost: {Host}\r\nPuerto: {Port}\r\nTimeOut: {TimeOutMilliSeconds}";
         }
     }
 }

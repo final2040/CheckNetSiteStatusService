@@ -2,26 +2,24 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
-using System.ServiceProcess;
-using System.Threading;
-using Services;
-using Data;
 using System.Security.Cryptography;
 using System.Text;
+using System.Threading;
+using Data;
+using Services;
 
-namespace CheckNetSiteStatusService
+namespace ApplicationTest
 {
-    public partial class NetChecker : ServiceBase
+    public class Test
     {
-
         private readonly Mail _smtpClient = new Mail();
         private readonly Logger _log = Logger.GetLogger();
         private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
         private readonly Configuration _configuration;
 
-        public NetChecker()
+        public Test()
         {
-            InitializeComponent();
+            _log.LogWriter = new ConsoleLogWriter();
             ValidationHelper validator = new ValidationHelper();
             var validationResult = validator.TryValidate(ConfigManager.Configuration);
             if (validationResult.IsValid)
@@ -60,7 +58,7 @@ namespace CheckNetSiteStatusService
             }
         }
 
-        protected override void OnStart(string[] args)
+        public void OnStart(string[] args)
         {
             _log.WriteInformation("========================={0}====================", DateTime.Now.ToString("G"));
             _log.WriteInformation("Inicializando Aplicación");
@@ -71,7 +69,7 @@ namespace CheckNetSiteStatusService
             }
         }
 
-        protected override void OnStop()
+        public  void OnStop()
         {
             _log.WriteInformation("Deteniendo Servicio");
             _log.WriteInformation("Cerrando subprocesos...");
@@ -144,7 +142,7 @@ namespace CheckNetSiteStatusService
             var typeOfTheEvent = eventType == EventType.ConnectionLost ? "Perdido" : "Restablecido";
 
             _log.WriteInformation("Se ha {0} la conección con el host: {1} ip: {2} - {3}",
-                typeOfTheEvent, eventArgs.ConnectionName, eventArgs.HostNameOrAddress, eventArgs.TestConfig);
+                typeOfTheEvent, eventArgs.ConnectionName, eventArgs.HostNameOrAddress,eventArgs.TestConfig);
 
             var testResults = PrintResults(eventArgs);
 
@@ -155,7 +153,7 @@ namespace CheckNetSiteStatusService
             builder.AddParam("host", eventArgs.HostNameOrAddress);
             builder.AddParam("hostname", eventArgs.ConnectionName);
             builder.AddParam("status", typeOfTheEvent);
-            builder.AddParam("testconfig", eventArgs.TestConfig);
+            builder.AddParam("testconfig",eventArgs.TestConfig);
             builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar para obtener la configuración de la prueba.");
             try
             {
@@ -196,5 +194,6 @@ namespace CheckNetSiteStatusService
             return credentials;
         }
 
-    }
+    
+}
 }
