@@ -56,7 +56,15 @@ namespace Services
 
         private static Configuration Deserialize(string xmlConfigPath)
         {
-            return new XmlHelper().GetConfig(xmlConfigPath);
+            try
+            {
+                return new XmlHelper().GetConfig(xmlConfigPath);
+            }
+            catch (Exception ex)
+            {
+                throw new InvalidOperationException($"Ocurrió un error al recuperar la configuración, " +
+                                                    $"verifique el archivo de configuración:{ex.Message}",ex);
+            }
         }
     }
 }

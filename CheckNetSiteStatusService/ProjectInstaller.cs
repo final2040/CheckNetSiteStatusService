@@ -10,7 +10,7 @@ namespace CheckNetSiteStatusService
         public ProjectInstaller()
         {
             InitializeComponent();
-            this.AfterInstall += ServiceInstaller_AfterInstall;
+           // this.AfterInstall += ServiceInstaller_AfterInstall;
         }
 
         private void ServiceInstaller_AfterInstall(object sender, InstallEventArgs e)

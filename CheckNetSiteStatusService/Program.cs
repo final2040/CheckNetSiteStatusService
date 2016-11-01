@@ -1,5 +1,4 @@
 ﻿using System;
-using System.IO;
 using System.ServiceProcess;
 using Services;
 
@@ -12,11 +11,19 @@ namespace CheckNetSiteStatusService
         /// </summary>
         static void Main()
         {
-            var ServicesToRun = new ServiceBase[]
+
+            try
             {
-                new NetChecker()
-            };
-            ServiceBase.Run(ServicesToRun);
+                var ServicesToRun = new ServiceBase[]
+                {
+                     new NetChecker()
+                };
+                ServiceBase.Run(ServicesToRun);
+            }
+            catch (Exception e)
+            {
+                Logger.Log.WriteError(e.Message);
+            }
         }
     }
 }

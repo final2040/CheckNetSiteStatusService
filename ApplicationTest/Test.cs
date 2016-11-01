@@ -12,6 +12,8 @@ namespace ApplicationTest
 {
     public class Test
     {
+
+
         private readonly Mail _smtpClient = new Mail();
         private readonly Logger _log = Logger.GetLogger();
         private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
@@ -19,9 +21,11 @@ namespace ApplicationTest
 
         public Test()
         {
-            _log.LogWriter = new ConsoleLogWriter();
+            
             ValidationHelper validator = new ValidationHelper();
-            var validationResult = validator.TryValidate(ConfigManager.Configuration);
+            ObjectValidationResults validationResult;
+            validationResult = validator.TryValidate(ConfigManager.Configuration);
+
             if (validationResult.IsValid)
             {
                 _configuration = ConfigManager.Configuration;
@@ -29,8 +33,8 @@ namespace ApplicationTest
             }
             else
             {
-                _log.WriteError("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
-                                "{0}", validationResult.ToString());
+                throw new ArgumentException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
+                                "{0}", validationResult.ToString()));
             }
         }
 
@@ -43,22 +47,22 @@ namespace ApplicationTest
             }
             catch (FormatException ex)
             {
-                _log.WriteError("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace);
+                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
             }
             catch (CryptographicException ex)
             {
-                _log.WriteError("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace);
+                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
             }
             catch (Exception ex)
             {
-                _log.WriteError("Occurrio un error al cargar las " +
-                                "configuraciones del correo {0} \r\n{1}", ex.Message, ex.StackTrace);
+                throw new InvalidOperationException(string.Format("Occurrio un error al cargar las configuraciones del" +
+                                                                  " correo {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
             }
         }
 
-        public void OnStart(string[] args)
+        public  void OnStart(string[] args)
         {
             _log.WriteInformation("========================={0}====================", DateTime.Now.ToString("G"));
             _log.WriteInformation("Inicializando Aplicación");
@@ -69,7 +73,7 @@ namespace ApplicationTest
             }
         }
 
-        public  void OnStop()
+        public void OnStop()
         {
             _log.WriteInformation("Deteniendo Servicio");
             _log.WriteInformation("Cerrando subprocesos...");
@@ -120,10 +124,10 @@ namespace ApplicationTest
                 _log.WriteInformation("Sub Procesos Creados Satisfactoriamente {0} " +
                                   "procesos creados", _monitorCollection.Count);
             }
-            catch (Exception exception)
+            catch (Exception ex)
             {
-                _log.WriteError("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
-                                  "StackTrace: {1}", exception.Message, exception.StackTrace);
+                throw new Exception(string.Format("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
+                                  "StackTrace: {1}", ex.Message, ex.StackTrace), ex);
             }
         }
 
@@ -142,7 +146,7 @@ namespace ApplicationTest
             var typeOfTheEvent = eventType == EventType.ConnectionLost ? "Perdido" : "Restablecido";
 
             _log.WriteInformation("Se ha {0} la conección con el host: {1} ip: {2} - {3}",
-                typeOfTheEvent, eventArgs.ConnectionName, eventArgs.HostNameOrAddress,eventArgs.TestConfig);
+                typeOfTheEvent, eventArgs.ConnectionName, eventArgs.HostNameOrAddress, eventArgs.TestConfig);
 
             var testResults = PrintResults(eventArgs);
 
@@ -153,8 +157,9 @@ namespace ApplicationTest
             builder.AddParam("host", eventArgs.HostNameOrAddress);
             builder.AddParam("hostname", eventArgs.ConnectionName);
             builder.AddParam("status", typeOfTheEvent);
-            builder.AddParam("testconfig",eventArgs.TestConfig);
-            builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar para obtener la configuración de la prueba.");
+            builder.AddParam("testconfig", eventArgs.TestConfig);
+            builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
+                                     "para obtener la configuración de la prueba.");
             try
             {
                 _smtpClient.Send(builder.Build());
@@ -162,7 +167,8 @@ namespace ApplicationTest
             }
             catch (Exception ex)
             {
-                _log.WriteError("Ocurrío un error al envíar el correo electronico {0} \r\n{1}", ex.Message, ex.StackTrace);
+                throw new Exception(string.Format("Ocurrío un error al envíar el correo electrónico {0} \r\n{1}",
+                    ex.Message, ex.StackTrace), ex);
             }
         }
 
@@ -194,6 +200,7 @@ namespace ApplicationTest
             return credentials;
         }
 
-    
-}
+
+
+    }
 }
