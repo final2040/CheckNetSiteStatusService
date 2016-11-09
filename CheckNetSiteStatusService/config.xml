@@ -2,12 +2,11 @@
 <Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
   <TestConfig>
     <WaitTimeSeconds>1</WaitTimeSeconds>
-    <TimeOutSeconds>40</TimeOutSeconds>
+    <TimeOutSeconds>30</TimeOutSeconds>
   </TestConfig>
-  
+
   <Tests>
-    <TCP Host="172.28.129.100" Port="8080">ARCHIVOS AIFCOMX</TCP>
-    <IP Host="172.28.129.33">AIFCOMX028</IP>
+    <TCP Host="172.28.129.100" Port="1433" TimeOutMilliSeconds="500">ARCHIVOS AIFCOMX - SQL SERVER</TCP>
     <IP Host="172.28.129.53">Compu de Jerry</IP>
   </Tests>
   
@@ -16,16 +15,29 @@
     <Recipients>
       <Email>rene.zamorano@airpak-latam.com</Email>
     </Recipients>
-    <Subject>Se ha {status} la conexión con {hostname}</Subject>
-    <Body>
-      El equipo {computername} ha {status} la conexión con el equipo {hostname} con {ip} en el puerto {port} durante mas de {timeout} segundos.
-
-      Favor de verificar el estado de la conexión.
-
-      {testresults}
+    <Subject>Se ha {status} la conexion con {hostname}</Subject>
+    <Body>El equipo {computername} ha {status} la conexión con el equipo {hostname} con ip {host} durante mas de {timeout} segundos.
+    
+Configuración de la de la prueba: {testconfig}
+      
+Favor de verificar el estado de la conexión.
+      
+{testresults}
     </Body>
     <IsHtml>false</IsHtml>
     <SmtpCredentials UserName="rene.zamorano@airpak-latam.com" Password="01FhX/M0XhwNjpREP3KTbrttHMsPU/cUl6YgPeBkHoTNcHa4ustG17esgD7bFcMf" />
     <SmtpConfiguration Host="smtp.gmail.com" Port="587" UseSsl="true" />
   </MailConfiguration>
 </Configuration>
+<!--
+{sendfrom}
+{status}
+{timeout}
+{hostname}
+{computername}
+{ip}
+{port}
+{testresults}
+{appname}
+{appversion}
+-->

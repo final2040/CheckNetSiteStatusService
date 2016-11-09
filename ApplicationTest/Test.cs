@@ -47,18 +47,18 @@ namespace ApplicationTest
             }
             catch (FormatException ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
+                throw new InvalidOperationException("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña: ", ex);
             }
             catch (CryptographicException ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
+                throw new InvalidOperationException("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña:", ex);
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error al cargar las configuraciones del" +
-                                                                  " correo {0} \r\n{1}", ex.Message, ex.StackTrace), ex);
+                throw new InvalidOperationException("Occurrio un error al cargar las configuraciones del" +
+                                                                  " correo: ", ex);
             }
         }
 
@@ -126,8 +126,7 @@ namespace ApplicationTest
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
-                                  "StackTrace: {1}", ex.Message, ex.StackTrace), ex);
+                throw new Exception("Ocurrio un error mientras se creaban los procesos: ", ex);
             }
         }
 
@@ -167,8 +166,7 @@ namespace ApplicationTest
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Ocurrío un error al envíar el correo electrónico {0} \r\n{1}",
-                    ex.Message, ex.StackTrace), ex);
+                throw new Exception("Ocurrío un error al envíar el correo electrónico: ", ex);
             }
         }
 

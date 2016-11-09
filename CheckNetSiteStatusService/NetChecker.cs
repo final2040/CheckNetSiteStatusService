@@ -29,7 +29,7 @@ namespace CheckNetSiteStatusService
             if (validationResult.IsValid)
             {
                 _configuration = ConfigManager.Configuration;
-                Initialize();
+                InitializeSmtp();
             }
             else
             {
@@ -38,7 +38,7 @@ namespace CheckNetSiteStatusService
             }
         }
 
-        private void Initialize()
+        private void InitializeSmtp()
         {
             try
             {
@@ -47,18 +47,18 @@ namespace CheckNetSiteStatusService
             }
             catch (FormatException ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace),ex);
+                throw new InvalidOperationException("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña: ",ex);
             }
             catch (CryptographicException ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña {0} \r\n{1}", ex.Message, ex.StackTrace),ex);
+                throw new InvalidOperationException("Occurrio un error desencriptar la contraseña del correo " +
+                                "por favor verifique la contraseña: ",ex);
             }
             catch (Exception ex)
             {
-                throw new InvalidOperationException(string.Format("Occurrio un error al cargar las configuraciones del" +
-                                                                  " correo {0} \r\n{1}", ex.Message, ex.StackTrace),ex);
+                throw new InvalidOperationException("Occurrio un error al cargar las configuraciones del" +
+                                                                  " correo: ",ex);
             }
         }
 
@@ -126,8 +126,7 @@ namespace CheckNetSiteStatusService
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Ocurrio un error mientras se creaban los procesos: \r\n{0}\r\n" +
-                                  "StackTrace: {1}", ex.Message, ex.StackTrace),ex);
+                throw new Exception("Ocurrio un error mientras se creaban los procesos: ",ex);
             }
         }
 
@@ -158,6 +157,8 @@ namespace CheckNetSiteStatusService
             builder.AddParam("hostname", eventArgs.ConnectionName);
             builder.AddParam("status", typeOfTheEvent);
             builder.AddParam("testconfig", eventArgs.TestConfig);
+            builder.AddParam("ip", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
+                                     "para obtener la configuración de la prueba.");
             builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
                                      "para obtener la configuración de la prueba.");
             try
@@ -167,8 +168,7 @@ namespace CheckNetSiteStatusService
             }
             catch (Exception ex)
             {
-                throw new Exception(string.Format("Ocurrío un error al envíar el correo electrónico {0} \r\n{1}", 
-                    ex.Message, ex.StackTrace),ex);
+                throw new Exception("Ocurrío un error al envíar el correo electrónico: ",ex);
             }
         }
 

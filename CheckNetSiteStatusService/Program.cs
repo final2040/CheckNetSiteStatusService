@@ -22,7 +22,7 @@ namespace CheckNetSiteStatusService
             }
             catch (Exception e)
             {
-                Logger.Log.WriteError(e.Message);
+                Logger.Log.WriteError("{0}\r\n{1}\r\n{2}",e.Message, e.InnerException?.Message, e.InnerException?.StackTrace);
             }
         }
     }

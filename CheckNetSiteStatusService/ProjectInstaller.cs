@@ -10,13 +10,11 @@ namespace CheckNetSiteStatusService
         public ProjectInstaller()
         {
             InitializeComponent();
-           // this.AfterInstall += ServiceInstaller_AfterInstall;
         }
 
         private void ServiceInstaller_AfterInstall(object sender, InstallEventArgs e)
         {
-            ServiceController serviceController = new ServiceController("NetMonitor");
-            serviceController.Start();
+            
         }
     }
 }
