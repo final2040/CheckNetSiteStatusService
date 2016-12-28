@@ -32,6 +32,9 @@
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>1478734977_network-transmit-receive.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
     <Reference Include="System.Configuration.Install" />
@@ -46,11 +49,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="NetChecker.cs">
+    <Compile Include="NetMonitorService.cs">
       <SubType>Component</SubType>
     </Compile>
-    <Compile Include="NetChecker.Designer.cs">
-      <DependentUpon>NetChecker.cs</DependentUpon>
+    <Compile Include="NetMonitorService.Designer.cs">
+      <DependentUpon>NetMonitorService.cs</DependentUpon>
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="ProjectInstaller.cs">
@@ -65,6 +68,7 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="1478734977_network-transmit-receive.ico" />
     <Content Include="config.xml">
       <SubType>
       </SubType>

@@ -4,9 +4,9 @@
 "ProjectType" = "8:{978C614F-708E-4E1A-B201-565925725DBA}"
 "IsWebType" = "8:FALSE"
 "ProjectName" = "8:Setup"
-"LanguageId" = "3:1033"
+"LanguageId" = "3:3082"
 "CodePage" = "3:1252"
-"UILanguageId" = "3:1033"
+"UILanguageId" = "3:3082"
 "SccProjectName" = "8:"
 "SccLocalPath" = "8:"
 "SccAuxPath" = "8:"
@@ -46,6 +46,12 @@
         "Entry"
         {
         "MsmKey" = "8:_7352C0C12EC14E66955694D173BDC39E"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_8BE1B0BA507248F79527517904F03A72"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -282,7 +288,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Data, Version=1.3.6149.22452, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Data, Version=1.3.6156.19637, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_50BDDDBBF136CD5565015D48A04D1F26"
@@ -313,7 +319,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:CheckNetSiteStatusService, Version=1.5.6149.24378, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:CheckNetSiteStatusService, Version=1.5.6157.18640, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_66D67B384EA3698A01919C1E89B20C46"
@@ -338,6 +344,26 @@
             "Register" = "3:1"
             "Exclude" = "11:FALSE"
             "IsDependency" = "11:TRUE"
+            "IsolateTo" = "8:"
+            }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_8BE1B0BA507248F79527517904F03A72"
+            {
+            "SourcePath" = "8:..\\1478734977_network-transmit-receive.ico"
+            "TargetName" = "8:1478734977_network-transmit-receive.ico"
+            "Tag" = "8:"
+            "Folder" = "8:_2DDC58C08632463489DBD9F29C230940"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
             "{9F6F8455-1EF1-4B85-886A-4223BCC8E7F7}:_AECE5CDE56B5437EFDC02FDF8C97C9B8"
@@ -395,7 +421,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Services, Version=1.5.6149.23443, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Services, Version=1.5.6156.19637, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_E7BF37829B5818AE5D0F19347D3CEF5E"
@@ -471,7 +497,7 @@
         }
         "MsiBootstrapper"
         {
-        "LangId" = "3:1033"
+        "LangId" = "3:3082"
         "RequiresElevation" = "11:FALSE"
         }
         "Product"
@@ -479,7 +505,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:NetworkMonitor"
         "ProductCode" = "8:{CA22E72A-4F24-4C6F-959F-6F4CD9F1D03D}"
-        "PackageCode" = "8:{0869D69E-5C3C-4FA1-B900-6A7A69AD3585}"
+        "PackageCode" = "8:{B4460C74-B01C-4983-B6DF-709C6B648CA8}"
         "UpgradeCode" = "8:{B24479B9-0B44-4AE9-B774-60519D0D8B98}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -496,7 +522,7 @@
         "Keywords" = "8:"
         "ARPCOMMENTS" = "8:Monitorea Conexiones de red"
         "ARPURLINFOABOUT" = "8:"
-        "ARPPRODUCTICON" = "8:"
+        "ARPPRODUCTICON" = "8:_8BE1B0BA507248F79527517904F03A72"
         "ARPIconIndex" = "3:0"
         "SearchPath" = "8:"
         "UseSystemSearchPath" = "11:TRUE"

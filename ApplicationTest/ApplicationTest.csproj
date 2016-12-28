@@ -45,12 +45,15 @@
   <ItemGroup>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Test.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\CheckNetSiteStatusService\CheckNetSiteStatusService.csproj">
+      <Project>{5a13ad46-48e4-4c08-abfb-652f82080c58}</Project>
+      <Name>CheckNetSiteStatusService</Name>
+    </ProjectReference>
     <ProjectReference Include="..\Data\Data.csproj">
       <Project>{B6D59987-F9BB-468A-961D-658899DF7323}</Project>
       <Name>Data</Name>

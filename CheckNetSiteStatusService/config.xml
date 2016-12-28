@@ -6,14 +6,14 @@
   </TestConfig>
 
   <Tests>
-    <TCP Host="172.28.129.100" Port="1433" TimeOutMilliSeconds="500">ARCHIVOS AIFCOMX - SQL SERVER</TCP>
-    <IP Host="172.28.129.53">Compu de Jerry</IP>
+    <TCP Host="www.google.com" Port="80" TimeOutMilliSeconds="500">Tcp connection to test</TCP>
+    <IP Host="www.microsoft.com">Site/ip to ping</IP>
   </Tests>
   
   <MailConfiguration>
-    <SendFrom>noreply@airpak-latam.com</SendFrom>
+    <SendFrom>noreply@gmail.com</SendFrom>
     <Recipients>
-      <Email>rene.zamorano@airpak-latam.com</Email>
+      <Email>someEmail@gmail.com</Email>
     </Recipients>
     <Subject>Se ha {status} la conexion con {hostname}</Subject>
     <Body>El equipo {computername} ha {status} la conexión con el equipo {hostname} con ip {host} durante mas de {timeout} segundos.
@@ -25,19 +25,7 @@ Favor de verificar el estado de la conexión.
 {testresults}
     </Body>
     <IsHtml>false</IsHtml>
-    <SmtpCredentials UserName="rene.zamorano@airpak-latam.com" Password="01FhX/M0XhwNjpREP3KTbrttHMsPU/cUl6YgPeBkHoTNcHa4ustG17esgD7bFcMf" />
-    <SmtpConfiguration Host="smtp.gmail.com" Port="587" UseSsl="true" />
+    <SmtpCredentials UserName="youremail@server.com" Password="Encrypted password use encription tool 'generatepassword.exe' in aplication folder" />
+    <SmtpConfiguration Host="smtp.server.com" Port="587" UseSsl="true" />
   </MailConfiguration>
 </Configuration>
-<!--
-{sendfrom}
-{status}
-{timeout}
-{hostname}
-{computername}
-{ip}
-{port}
-{testresults}
-{appname}
-{appversion}
--->

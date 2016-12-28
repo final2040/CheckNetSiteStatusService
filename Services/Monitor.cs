@@ -6,39 +6,35 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Data;
-using Services;
 
-namespace ApplicationTest
+namespace Services
 {
-    public class Test
+    public class Monitor 
     {
-
 
         private readonly Mail _smtpClient = new Mail();
         private readonly Logger _log = Logger.GetLogger();
         private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
         private readonly Configuration _configuration;
 
-        public Test()
+        public Monitor()
         {
-            
             ValidationHelper validator = new ValidationHelper();
-            ObjectValidationResults validationResult;
-            validationResult = validator.TryValidate(ConfigManager.Configuration);
+            var validationResult = validator.TryValidate(ConfigManager.Configuration);
 
             if (validationResult.IsValid)
             {
                 _configuration = ConfigManager.Configuration;
-                Initialize();
+                InitializeSmtp();
             }
             else
             {
-                throw new ArgumentException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
+                throw new InvalidOperationException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
                                 "{0}", validationResult.ToString()));
             }
         }
 
-        private void Initialize()
+        private void InitializeSmtp()
         {
             try
             {
@@ -53,7 +49,7 @@ namespace ApplicationTest
             catch (CryptographicException ex)
             {
                 throw new InvalidOperationException("Occurrio un error desencriptar la contraseña del correo " +
-                                "por favor verifique la contraseña:", ex);
+                                "por favor verifique la contraseña: ", ex);
             }
             catch (Exception ex)
             {
@@ -62,7 +58,7 @@ namespace ApplicationTest
             }
         }
 
-        public  void OnStart(string[] args)
+        public void Start()
         {
             _log.WriteInformation("========================={0}====================", DateTime.Now.ToString("G"));
             _log.WriteInformation("Inicializando Aplicación");
@@ -73,7 +69,7 @@ namespace ApplicationTest
             }
         }
 
-        public void OnStop()
+        public void Stop()
         {
             _log.WriteInformation("Deteniendo Servicio");
             _log.WriteInformation("Cerrando subprocesos...");
@@ -157,6 +153,8 @@ namespace ApplicationTest
             builder.AddParam("hostname", eventArgs.ConnectionName);
             builder.AddParam("status", typeOfTheEvent);
             builder.AddParam("testconfig", eventArgs.TestConfig);
+            builder.AddParam("ip", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
+                                     "para obtener la configuración de la prueba.");
             builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
                                      "para obtener la configuración de la prueba.");
             try
@@ -197,8 +195,6 @@ namespace ApplicationTest
             };
             return credentials;
         }
-
-
 
     }
 }

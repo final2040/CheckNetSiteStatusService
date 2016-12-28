@@ -54,6 +54,7 @@
     <Compile Include="FileLogWriter.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Mail.cs" />
+    <Compile Include="Monitor.cs" />
     <Compile Include="PingTest.cs" />
     <Compile Include="NetworkMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
