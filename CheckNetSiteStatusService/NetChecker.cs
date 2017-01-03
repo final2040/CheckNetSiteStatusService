@@ -16,7 +16,7 @@ namespace CheckNetSiteStatusService
         
         private readonly Mail _smtpClient = new Mail();
         private readonly Logger _log = Logger.GetLogger();
-        private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
+        private readonly Dictionary<Thread, INetworkMonitor> _monitorCollection = new Dictionary<Thread, INetworkMonitor>();
         private readonly Configuration _configuration;
 
         public NetChecker()
@@ -129,9 +129,9 @@ namespace CheckNetSiteStatusService
             }
         }
         
-        private NetworkMonitor CreateMonitor(IP ip)
+        private INetworkMonitor CreateMonitor(IP ip)
         {
-            NetworkMonitor monitor = new NetworkMonitor(ip.Address, ip.Port,
+            INetworkMonitor monitor = new NetworkMonitor(ip.Address, ip.Port,
                 _configuration.WaitTimeSeconds * 1000, _configuration.TimeOutSeconds * 1000, ip.Name);
 
             monitor.OnStatusChange += Monitor_OnStatusChange;
