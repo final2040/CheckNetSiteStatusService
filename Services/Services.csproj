@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="AesEncryptor.cs" />
     <Compile Include="ConfigManager.cs" />
-    <Compile Include="INetworkMonitor.cs" />
     <Compile Include="Interfaces\ICryptoKey.cs" />
     <Compile Include="Interfaces\IEncryptor.cs" />
     <Compile Include="MailBuilder.cs" />
@@ -52,7 +51,6 @@
     <Compile Include="FileWrapper.cs" />
     <Compile Include="Logger.cs" />
     <Compile Include="Mail.cs" />
-    <Compile Include="NetworkMonitorV2.cs" />
     <Compile Include="NetworkTest.cs" />
     <Compile Include="NetworkMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

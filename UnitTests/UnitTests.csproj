@@ -58,7 +58,6 @@
     <Compile Include="NetworkTests.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecureStringTests.cs" />
-    <Compile Include="StateTests.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

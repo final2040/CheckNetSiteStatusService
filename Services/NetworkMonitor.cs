@@ -5,8 +5,7 @@ using Data;
 
 namespace Services
 {
-    [Obsolete("Use NetworkMonitorV2 Instead")]
-    public class NetworkMonitor : INetworkMonitor
+    public class NetworkMonitor
     {
         #region Fields
         private ConnectionStatus _currentStatus = ConnectionStatus.ConnectionOnline;
@@ -41,12 +40,6 @@ namespace Services
                 }
             }
         }
-
-        public int TimeoutMiliseconds
-        {
-            get { return _timeOut; }
-        }
-
         #endregion
 
         #region Constructors
