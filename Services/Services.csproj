@@ -45,6 +45,7 @@
     <Compile Include="AesEncryptor.cs" />
     <Compile Include="ConfigManager.cs" />
     <Compile Include="ConsoleLogWriter.cs" />
+    <Compile Include="INetworkMonitor.cs" />
     <Compile Include="Interfaces\ILogWriter.cs" />
     <Compile Include="Interfaces\INetworkTest.cs" />
     <Compile Include="Interfaces\ICryptoKey.cs" />
@@ -55,6 +56,7 @@
     <Compile Include="Logger.cs" />
     <Compile Include="Mail.cs" />
     <Compile Include="Monitor.cs" />
+    <Compile Include="NetworkMonitor2.cs" />
     <Compile Include="PingTest.cs" />
     <Compile Include="NetworkMonitor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

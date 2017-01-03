@@ -14,7 +14,7 @@ namespace Services
 
         private readonly Mail _smtpClient = new Mail();
         private readonly Logger _log = Logger.GetLogger();
-        private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
+        private readonly Dictionary<Thread, INetworkMonitor> _monitorCollection = new Dictionary<Thread, INetworkMonitor>();
         private readonly Configuration _configuration;
 
         public Monitor()
@@ -30,7 +30,7 @@ namespace Services
             else
             {
                 throw new InvalidOperationException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
-                                "{0}", validationResult.ToString()));
+                                "{0}", validationResult));
             }
         }
 
@@ -126,9 +126,9 @@ namespace Services
             }
         }
 
-        private NetworkMonitor CreateMonitor(TestConfigurationBase testConfiguration)
+        private INetworkMonitor CreateMonitor(TestConfigurationBase testConfiguration)
         {
-            NetworkMonitor monitor = new NetworkMonitor(TestFactory.CreateInstance(testConfiguration), _configuration.TestConfig, testConfiguration.Name);
+            INetworkMonitor monitor = new NetworkMonitor(TestFactory.CreateInstance(testConfiguration), _configuration.TestConfig, testConfiguration.Name);
 
             monitor.OnStatusChange += Monitor_OnStatusChange;
             monitor.OnConnectionBack += Monitor_OnConnectionBack;
@@ -177,7 +177,7 @@ namespace Services
 
             foreach (var netTestResult in results.Reverse())
             {
-                stringBuilder.AppendLine(netTestResult.ToString() + Environment.NewLine);
+                stringBuilder.AppendLine(netTestResult + Environment.NewLine);
             }
 
             return stringBuilder.ToString();
