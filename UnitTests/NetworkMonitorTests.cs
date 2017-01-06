@@ -40,25 +40,25 @@ namespace UnitTests
         }
 
         [Test]
-        public void ShouldTestConnectionEveryHalfSecond()
+        public void ShouldTestConnectionEvery30Milliseconds()
         {
             // arrange
-            _networkTesterMock.Setup(nm=> nm.Test()).Returns(_successPingResult).Verifiable();
+            _networkTesterMock.Setup(nm => nm.Test()).Returns(_successPingResult).Verifiable();
 
-            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30,"Test Network");
+            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, "Test Network");
             Thread testThread = new Thread(monitor.Start);
-            
+
             // act
             testThread.Start();
             Thread.Sleep(150);
 
             // assert
-            _networkTesterMock.Verify(nm => nm.Test(),Times.AtLeast(5));
+            _networkTesterMock.Verify(nm => nm.Test(), Times.AtLeast(5));
             testThread.Abort();
         }
 
         [Test]
-        public void ShouldChangeStatusToRetryingIfConnectionReturnsFalse()
+        public void ShouldChangeStatusToRetryingOnlineOnConnectionFail()
         {
             // arrange
             _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
@@ -71,12 +71,12 @@ namespace UnitTests
             Thread.Sleep(120);
 
             // assert
-            Assert.AreEqual(ConnectionStatus.Retrying, monitor.CurrentStatus);
+            Assert.IsInstanceOf(typeof(RetryingOnline), monitor.CurrentState);
             testThread.Abort();
         }
 
         [Test]
-        public void ShouldChangeStatusToOfflineAfter500MsUnsuccessfulRetrys() // 20 retrys
+        public void ShouldChangeStatusToOfflineAfter500MsUnsuccessfulRetries() // 20 retrys
         {
             // arrange
             _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
@@ -89,31 +89,11 @@ namespace UnitTests
             Thread.Sleep(750);
 
             // assert
-            Assert.AreEqual(ConnectionStatus.ConnectionOffline, monitor.CurrentStatus);
-            _networkTesterMock.Verify(nm => nm.Test(),Times.AtLeast(16));
+            Assert.IsInstanceOf(typeof(Offline), monitor.CurrentState);
+            _networkTesterMock.Verify(nm => nm.Test(), Times.AtLeast(16));
             testThread.Abort();
         }
 
-        [Test]
-        public void ShouldChangeStatusToOnlineIfServiceBackOnlineBeforeTimeout()
-        {
-           // arrange
-            _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
-
-            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, 500, "Test Network");
-            Thread testThread = new Thread(monitor.Start);
-
-            // act
-            testThread.Start();
-            Assert.AreEqual(ConnectionStatus.ConnectionOnline, monitor.CurrentStatus);
-            _unsuccessPingResult.Status = IPStatus.TimedOut;
-            Thread.Sleep(60);
-            Assert.AreEqual(ConnectionStatus.Retrying,monitor.CurrentStatus);
-            _unsuccessPingResult.Status = IPStatus.Success;
-            Thread.Sleep(60);
-            Assert.AreEqual(ConnectionStatus.ConnectionOnline, monitor.CurrentStatus);
-            testThread.Abort();
-        }
 
         [Test]
         public void ShouldRaiseEventOnStatusChange()
@@ -125,7 +105,7 @@ namespace UnitTests
             Thread testThread = new Thread(monitor.Start);
             bool eventRaised = false;
             monitor.OnStatusChange += (s, e) => { eventRaised = true; };
-            
+
             // act
             testThread.Start();
             Thread.Sleep(250);
@@ -141,20 +121,22 @@ namespace UnitTests
         public void ShouldRaiseEventOnHostTimeout()
         {
             // arrange
+            bool eventRaised = false;
             _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
 
-            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, 500, "Test Network");
+            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 10, 50, "Test Network");
+            monitor.OnConnectionLost += (sender, args) => eventRaised = true;
+
             Thread testThread = new Thread(monitor.Start);
-            bool eventRaised = false;
-            monitor.OnConnectionLost += (s, e) => { eventRaised = true; };
 
             // act
             testThread.Start();
-            Thread.Sleep(750);
+            Thread.Sleep(100);
 
             // assert
-            Assert.IsTrue(eventRaised);
             testThread.Abort();
+            Assert.IsTrue(eventRaised);
+            
         }
 
         [Test]
@@ -163,17 +145,17 @@ namespace UnitTests
             // arrange
             _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
 
-            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, 150, "Test Network");
+            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, 100, "Test Network");
             Thread testThread = new Thread(monitor.Start);
             TestNetworkEventArgs eventArgsResult = null;
-            monitor.OnConnectionLost += (s, e) => { eventArgsResult = (TestNetworkEventArgs) e; };
+            monitor.OnConnectionLost += (s, e) => { eventArgsResult = (TestNetworkEventArgs)e; };
 
             // act
             testThread.Start();
             Thread.Sleep(200);
 
             // assert
-            Assert.AreEqual("Test Network",eventArgsResult.ConnectionName);
+            Assert.AreEqual("Test Network", eventArgsResult.ConnectionName);
             CollectionAssert.IsNotEmpty(eventArgsResult.NetTestResults);
             Assert.IsTrue(eventArgsResult.NetTestResults.Count() > 3);
             PrintEventArgsResult(eventArgsResult);
@@ -193,13 +175,13 @@ namespace UnitTests
             // act
             testThread.Start();
             Thread.Sleep(200);
-            Debug.Print("FirstAssertStatus = {0}",monitor.CurrentStatus);
-            Assert.AreEqual(ConnectionStatus.ConnectionOffline,monitor.CurrentStatus);
+            Debug.Print("FirstAssertStatus = {0}", monitor.CurrentState);
+            Assert.IsInstanceOf(typeof(Offline), monitor.CurrentState);
 
             _unsuccessPingResult.Status = IPStatus.Success;
             Thread.Sleep(30);
-            Debug.Print("SecondAssertStatus = {0}", monitor.CurrentStatus);
-            Assert.AreEqual(ConnectionStatus.Retrying, monitor.CurrentStatus);
+            Debug.Print("SecondAssertStatus = {0}", monitor.CurrentState);
+            Assert.IsInstanceOf(typeof(RetryingOffline), monitor.CurrentState);
 
             testThread.Abort();
         }
@@ -220,33 +202,8 @@ namespace UnitTests
             Thread.Sleep(750);
 
             // assert
-            Assert.AreEqual(ConnectionStatus.ConnectionOnline, monitor.CurrentStatus);
+            Assert.IsInstanceOf(typeof(Online), monitor.CurrentState);
             _networkTesterMock.Verify(nm => nm.Test(), Times.AtLeast(16));
-            testThread.Abort();
-        }
-
-        [Test]
-        public void ShouldChangeStatusToOfflineIfServiceBackOfflineBeforeTimeout()
-        {
-            // arrange
-            _networkTesterMock.Setup(nm => nm.Test()).Returns(_unsuccessPingResult).Verifiable();
-
-            NetworkMonitor monitor = new NetworkMonitor(_networkTesterMock.Object, 30, 300, "Test Network");
-            Thread testThread = new Thread(monitor.Start);
-
-            // act
-            testThread.Start();
-            Thread.Sleep(350);
-            Assert.AreEqual(ConnectionStatus.ConnectionOffline, monitor.CurrentStatus);
-            _unsuccessPingResult.Status = IPStatus.Success;
-            Thread.Sleep(50);
-            Assert.AreEqual(ConnectionStatus.Retrying, monitor.CurrentStatus);
-            _unsuccessPingResult.Status = IPStatus.TimedOut;
-            Thread.Sleep(50);
-            Assert.AreEqual(ConnectionStatus.ConnectionOffline, monitor.CurrentStatus);
-
-            // assert
-            Assert.AreEqual(ConnectionStatus.ConnectionOffline, monitor.CurrentStatus);
             testThread.Abort();
         }
 
@@ -263,9 +220,9 @@ namespace UnitTests
 
             // act
             testThread.Start();
-            Thread.Sleep(750);
+            Thread.Sleep(150);
             _unsuccessPingResult.Status = IPStatus.Success;
-            Thread.Sleep(750);
+            Thread.Sleep(150);
 
             // assert
             Assert.IsTrue(eventRaised);
