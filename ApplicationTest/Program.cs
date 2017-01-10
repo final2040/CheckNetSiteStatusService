@@ -11,6 +11,7 @@ namespace ApplicationTest
 
         private static void Main(string[] args)
         {
+            Console.CancelKeyPress += Console_CancelKeyPress;
             Logger.GetLogger().LogWriter = new ConsoleLogWriter();
             _monitor = new Monitor();
             _monitor.Start();
