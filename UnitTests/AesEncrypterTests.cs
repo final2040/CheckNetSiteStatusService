@@ -5,6 +5,7 @@ using System.Text;
 using Data;
 using NUnit.Framework;
 using Services;
+using Services.Encription;
 
 namespace UnitTests
 {

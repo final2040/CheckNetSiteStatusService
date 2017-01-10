@@ -1,9 +1,12 @@
 ﻿using System.Net;
 using System.Net.Mail;
 using Data;
+using Data.Mail;
 using Moq;
 using NUnit.Framework;
 using Services;
+using Services.Encription;
+using Services.Mail;
 
 namespace UnitTests
 {

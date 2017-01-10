@@ -5,6 +5,10 @@ using NUnit.Framework;
 using Services;
 using System.Collections.Generic;
 using System.IO;
+using Data.Configuration;
+using Data.NetworkTest;
+using Services.Configuration;
+using Services.Mail;
 
 namespace UnitTests
 {

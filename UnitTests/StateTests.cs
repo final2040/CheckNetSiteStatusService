@@ -3,9 +3,12 @@ using System.Diagnostics;
 using System.Net.NetworkInformation;
 using System.Threading;
 using Data;
+using Data.NetworkTest;
 using Moq;
 using NUnit.Framework;
 using Services;
+using Services.NetworkTests;
+using Services.State;
 
 namespace UnitTests
 {
@@ -79,7 +82,7 @@ namespace UnitTests
             _monitorMock.Setup(mm => mm.NetworkTest).Returns(_testMock.Object);
 
             
-            _stateMock.Setup(sm => sm.ResetTimer()).Verifiable();
+            _stateMock.Setup(sm => sm.Reset()).Verifiable();
 
             _monitorMock.Setup(mm => mm.RetryingOnline).Returns(_stateMock.Object);
             _monitorMock.SetupProperty(mm => mm.CurrentState, new Online(_monitorMock.Object));
@@ -115,7 +118,7 @@ namespace UnitTests
         {
             // arrange
             State state = new RetryingOnline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             _testMock.Setup(tm => tm.Test()).Returns(_unsuccessPingResult);
             _monitorMock.Setup(mm => mm.TimeOut).Returns(100);
             _monitorMock.SetupProperty(mm => mm.CurrentState, state);
@@ -140,7 +143,7 @@ namespace UnitTests
         {
             // arrange
             State state = new RetryingOnline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             _testMock.Setup(tm => tm.Test()).Returns(_successPingResult);
             _monitorMock.Setup(mm => mm.TimeOut).Returns(100);
             _monitorMock.SetupProperty(mm => mm.CurrentState, state);
@@ -148,14 +151,15 @@ namespace UnitTests
 
             // act
             state.Test();
-            Thread.Sleep(10);
+            
             _testMock.Setup(tm => tm.Test()).Returns(_unsuccessPingResult);
 
-            for (int i = 0; i < 9; i++)
+            for (int i = 0; i < 8; i++)
             {
                 state.Test();
-                Thread.Sleep(11);
             }
+            Thread.Sleep(150);
+            state.Test();
          
             // assert
             Assert.IsInstanceOf(typeof(Offline), _monitorMock.Object.CurrentState);
@@ -166,7 +170,7 @@ namespace UnitTests
         {
             // arrange
             State state = new RetryingOnline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             _testMock.Setup(tm => tm.Test()).Returns(_unsuccessPingResult);
             _monitorMock.Setup(mm => mm.TimeOut).Returns(15);
             _monitorMock.SetupProperty(mm => mm.CurrentState, state);
@@ -188,7 +192,7 @@ namespace UnitTests
         {
             // arrange
             State state = new RetryingOnline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             List<INetTestResult> result = new List<INetTestResult>();
             _testMock.Setup(tm => tm.Test()).Returns(_unsuccessPingResult);
             _monitorMock.Setup(mm => mm.TimeOut).Returns(15);
@@ -236,7 +240,7 @@ namespace UnitTests
             _testMock.Setup(tm => tm.Test()).Returns(_successPingResult);
             _monitorMock.Setup(mm => mm.NetworkTest).Returns(_testMock.Object);
 
-            _stateMock.Setup(sm => sm.ResetTimer()).Verifiable();
+            _stateMock.Setup(sm => sm.Reset()).Verifiable();
 
             _monitorMock.Setup(mm => mm.RetryingOffline).Returns(_stateMock.Object);
             _monitorMock.SetupProperty(mm => mm.CurrentState, new Offline(_monitorMock.Object));
@@ -277,7 +281,7 @@ namespace UnitTests
             _monitorMock.Setup(mm => mm.NetworkTest).Returns(_testMock.Object);
 
             State state = new RetryingOffline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             // act
             state.Test();
             Thread.Sleep(10);
@@ -302,7 +306,7 @@ namespace UnitTests
             _monitorMock.Setup(mm => mm.NetworkTest).Returns(_testMock.Object);
 
             State state = new RetryingOnline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
 
             // act
             state.Test();
@@ -324,7 +328,7 @@ namespace UnitTests
         {
             // arrange
             State state = new RetryingOffline(_monitorMock.Object);
-            state.ResetTimer();
+            state.Reset();
             _testMock.Setup(tm => tm.Test()).Returns(_successPingResult);
             _monitorMock.Setup(mm => mm.TimeOut).Returns(15);
             _monitorMock.SetupProperty(mm => mm.CurrentState, state);

@@ -1,15 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Linq;
-using System.Net.Sockets;
-using System.Text;
-using System.Threading.Tasks;
-using Services;
-
+using Services.Encription;
 
 namespace GeneratePassword
 {
+    /// <summary>
+    /// Genera la constraseña encriptada para la configuración de la aplicación.
+    /// </summary>
     class Program
     {
         private static string _encryptKey;
@@ -58,7 +55,7 @@ namespace GeneratePassword
 
             var key = _useCustomKeyFlag ? new Md5Key(_encryptKey, 100) : new Md5Key("airpak-latam", 100);
             var encryptor = new AesEncryptor(key);
-            var encryptedPassword = encryptor.Base64Encrypt(_password);
+            var encryptedPassword = encryptor.EncryptToBase64(_password);
             return encryptedPassword;
         }
 

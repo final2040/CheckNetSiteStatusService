@@ -6,16 +6,24 @@ using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
 using Data;
+using Data.NetworkTest;
+using Services.Configuration;
+using Services.Encription;
+using Services.Log;
+using Services.Mail;
 
 namespace Services
 {
+    /// <summary>
+    /// Monitorea una o mas conexiones de red.
+    /// </summary>
     public class Monitor 
     {
 
-        private readonly Mail _smtpClient = new Mail();
+        private readonly Mail.Mail _smtpClient = new Mail.Mail();
         private readonly Logger _log = Logger.GetLogger();
         private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
-        private readonly Configuration _configuration;
+        private readonly Data.Configuration.Configuration _configuration;
 
         public Monitor()
         {
@@ -34,6 +42,9 @@ namespace Services
             }
         }
 
+        /// <summary>
+        /// Inicializa el cliente smtp para su uso.
+        /// </summary>
         private void InitializeSmtp()
         {
             try
@@ -57,7 +68,9 @@ namespace Services
                                                                   " correo: ", ex);
             }
         }
-
+        /// <summary>
+        /// Inicia la aplicación, creando los hilos encargados del monitoreo.
+        /// </summary>
         public void Start()
         {
             _log.WriteInformation("========================={0}====================", DateTime.Now.ToString("G"));
@@ -69,6 +82,9 @@ namespace Services
             }
         }
 
+        /// <summary>
+        /// Detiene los hilos creados y cierra la aplicación.
+        /// </summary>
         public void Stop()
         {
             _log.WriteInformation("Deteniendo Servicio");
@@ -81,18 +97,33 @@ namespace Services
             _smtpClient.Dispose();
         }
 
+        /// <summary>
+        /// Envía un correo electrónico con los detalles necesarios, cuando la conexión se pierde.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Monitor_OnConnectionLost(object sender, EventArgs e)
         {
             TestNetworkEventArgs eventArgs = (TestNetworkEventArgs)e;
             SendEmail(eventArgs, EventType.ConnectionLost);
         }
 
+        /// <summary>
+        /// Envía un correo electrónico con los detalles nesesarios, cuando la conexión se restablece.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Monitor_OnConnectionBack(object sender, EventArgs e)
         {
             TestNetworkEventArgs eventArgs = (TestNetworkEventArgs)e;
             SendEmail(eventArgs, EventType.ConnectionRecover);
         }
 
+        /// <summary>
+        /// Registra en el log cuando el monitor cambia de estado.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Monitor_OnStatusChange(object sender, EventArgs e)
         {
             ChangeEventArgs eventArgs = (ChangeEventArgs)e;
@@ -100,6 +131,9 @@ namespace Services
                 eventArgs.Name, eventArgs.CurrentStatus);
         }
 
+        /// <summary>
+        /// Crea los subprocesos que monitorearan los diversos servicios/conexiones de red
+        /// </summary>
         private void CreateThreads()
         {
             _log.WriteInformation("Creando subprocesos");
@@ -126,6 +160,11 @@ namespace Services
             }
         }
 
+        /// <summary>
+        /// Crea un monitor de servicio/conexión de red
+        /// </summary>
+        /// <param name="testConfiguration"></param>
+        /// <returns></returns>
         private NetworkMonitor CreateMonitor(TestConfigurationBase testConfiguration)
         {
             NetworkMonitor monitor = new NetworkMonitor(TestFactory.CreateInstance(testConfiguration), _configuration.TestConfig, testConfiguration.Name);
@@ -136,6 +175,11 @@ namespace Services
             return monitor;
         }
 
+        /// <summary>
+        /// Envía un correo electrónico
+        /// </summary>
+        /// <param name="eventArgs"></param>
+        /// <param name="eventType"></param>
         private void SendEmail(TestNetworkEventArgs eventArgs, EventType eventType)
         {
             var typeOfTheEvent = eventType == EventType.ConnectionLost ? "Perdido" : "Restablecido";
@@ -168,6 +212,11 @@ namespace Services
             }
         }
 
+        /// <summary>
+        /// Devuelve un string con los resultados de las pruebas realizadas.
+        /// </summary>
+        /// <param name="eventArgs"></param>
+        /// <returns></returns>
         private string PrintResults(TestNetworkEventArgs eventArgs)
         {
             StringBuilder stringBuilder = new StringBuilder();
@@ -183,6 +232,10 @@ namespace Services
             return stringBuilder.ToString();
         }
 
+        /// <summary>
+        /// Obtiene las credencíales del correo electrónico de la configuración.
+        /// </summary>
+        /// <returns></returns>
         private NetworkCredential GetCredentials()
         {
             Md5Key key = new Md5Key("airpak-latam", 100);

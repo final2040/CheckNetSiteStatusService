@@ -4,6 +4,9 @@ using System.Net.NetworkInformation;
 using NUnit.Framework;
 using Services;
 using Data;
+using Data.NetworkTest;
+using Services.Log;
+using Services.NetworkTests;
 
 namespace UnitTests
 {
@@ -25,17 +28,17 @@ namespace UnitTests
         }
 
         [Test]
-        public void ShouldReturnUnreachableOnHostDown()
+        public void ShouldReturnTimedOutOnHostDown()
         {
             // arrange
-            var network = new PingTest("172.28.129.225");
+            var network = new PingTest("172.28.129.227");
 
             // act
             var currentResult = network.Test();
 
             // assert
             Debug.Print(currentResult.ToString());
-            Assert.AreEqual(IPStatus.DestinationHostUnreachable, currentResult.Status);
+            Assert.AreEqual(IPStatus.TimedOut, currentResult.Status);
         }
 
         [Test]

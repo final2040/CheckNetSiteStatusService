@@ -41,26 +41,27 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="EventArgs\ChangeEventArgs.cs" />
-    <Compile Include="Enum\LogType.cs" />
-    <Compile Include="Enum\EventType.cs" />
-    <Compile Include="PingTestConfiguration.cs" />
-    <Compile Include="Results\CompositeValidationResults.cs" />
-    <Compile Include="Configuration.cs" />
-    <Compile Include="Enum\ConnectionStatus.cs" />
-    <Compile Include="Interfaces\INetTestResult.cs" />
-    <Compile Include="Results\PingTestResult.cs" />
+    <Compile Include="NetworkTest\ChangeEventArgs.cs" />
+    <Compile Include="Log\LogType.cs" />
+    <Compile Include="NetworkTest\EventType.cs" />
+    <Compile Include="NetworkTest\PingTestConfiguration.cs" />
+    <Compile Include="Configuration\CompositeValidationResults.cs" />
+    <Compile Include="Configuration\Configuration.cs" />
+    <Compile Include="NetworkTest\ConnectionStatus.cs" />
+    <Compile Include="NetworkTest\INetTestResult.cs" />
+    <Compile Include="NetworkTest\PingTestResult.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="SmtpConfiguration.cs" />
-    <Compile Include="SmtpCredential.cs" />
-    <Compile Include="Results\TCPTestResult.cs" />
-    <Compile Include="EventArgs\TestNetworkEventArgs.cs" />
-    <Compile Include="Attributes\ValidateCollection.cs" />
-    <Compile Include="Attributes\ValidateObject.cs" />
-    <Compile Include="TcpTestConfiguration.cs" />
-    <Compile Include="TestConfigurationBase.cs" />
-    <Compile Include="TestConfig.cs" />
+    <Compile Include="Mail\SmtpConfiguration.cs" />
+    <Compile Include="Mail\SmtpCredential.cs" />
+    <Compile Include="NetworkTest\TCPTestResult.cs" />
+    <Compile Include="NetworkTest\TestNetworkEventArgs.cs" />
+    <Compile Include="Configuration\ValidateCollection.cs" />
+    <Compile Include="Configuration\ValidateObject.cs" />
+    <Compile Include="NetworkTest\TcpTestConfiguration.cs" />
+    <Compile Include="NetworkTest\TestConfigurationBase.cs" />
+    <Compile Include="NetworkTest\TestConfig.cs" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

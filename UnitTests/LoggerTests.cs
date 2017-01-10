@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Text;
 using Data;
+using Data.Log;
 using Moq;
 using NUnit.Framework;
 using Services;
+using Services.Log;
 
 namespace UnitTests
 {

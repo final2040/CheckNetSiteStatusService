@@ -3,8 +3,12 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using Data;
+using Data.Configuration;
+using Data.Mail;
+using Data.NetworkTest;
 using NUnit.Framework;
 using Services;
+using Services.Configuration;
 
 namespace UnitTests
 {

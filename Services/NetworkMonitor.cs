@@ -2,13 +2,20 @@
 using System.Collections.Generic;
 using System.Threading;
 using Data;
+using Data.NetworkTest;
+using Services.Log;
+using Services.NetworkTests;
+using Services.State;
 
 namespace Services
 {
+    /// <summary>
+    /// Monitorea un servicio/conexión de red
+    /// </summary>
     public class NetworkMonitor
     {
         #region Fields
-        private State _currentStatus;
+        private State.State _currentStatus;
         private readonly int _timeOut;
         private readonly string _testNetworkName;
         private INetworkTest _networkTest;
@@ -17,10 +24,10 @@ namespace Services
         private const int DEFAULT_TIME_BETWEEN_TESTS = 2000;
         private const int DEFAULT_TIMEOUT = 120000;
 
-        private readonly State _online;
-        private readonly State _offline;
-        private readonly State _retryingOnline;
-        private readonly State _retryingOffline;
+        private readonly State.State _online;
+        private readonly State.State _offline;
+        private readonly State.State _retryingOnline;
+        private readonly State.State _retryingOffline;
 
         #endregion
 
@@ -31,19 +38,27 @@ namespace Services
         #endregion
 
         #region Properties
-
+        /// <summary>
+        /// Propiedad que obtiene o establece la prueba de red a realizar
+        /// </summary>
         public virtual INetworkTest NetworkTest
         {
             get { return _networkTest; }
             set { _networkTest = value; }
         }
 
+        /// <summary>
+        /// Propiedad que Obtiene el tiempo de espera entre cada prueba
+        /// </summary>
         public virtual int TimeBetweenTests
         {
             get { return _timeBetweenTests; }
         }
 
-        public virtual State CurrentState
+        /// <summary>
+        /// Propiedad que obtiene o establece el estado actual de la conexión.
+        /// </summary>
+        public virtual State.State CurrentState
         {
             get { return _currentStatus; }
             set
@@ -55,33 +70,51 @@ namespace Services
                 }
             }
         }
-
+        /// <summary>
+        /// Propiedad que obtiene o establece el tiempo de espera maximo de reintentos antes de cambiar de estado
+        /// en linea a fuera de linea o visceversa 
+        /// </summary>
         public virtual int TimeOut
         {
             get { return _timeOut; }
         }
 
+        /// <summary>
+        /// Propiedad que obtiene el nombre del servicio/conexión de red a probar
+        /// </summary>
         public virtual string TestNetworkName
         {
             get { return _testNetworkName; }
         }
 
-        public virtual State Online
+        /// <summary>
+        /// Propiedad que obtiene el estado en linea
+        /// </summary>
+        public virtual State.State Online
         {
             get { return _online; }
         }
 
-        public virtual State Offline
+        /// <summary>
+        /// Propiedad que obtiene el estado fuera de linea
+        /// </summary>
+        public virtual State.State Offline
         {
             get { return _offline; }
         }
 
-        public virtual State RetryingOnline
+        /// <summary>
+        /// Propiedad que obtiene el estado Reintentando en Linea
+        /// </summary>
+        public virtual State.State RetryingOnline
         {
             get { return _retryingOnline; }
         }
 
-        public virtual State RetryingOffline
+        /// <summary>
+        /// Propiedad que obtiene el estado Reintentando Fuera de linea
+        /// </summary>
+        public virtual State.State RetryingOffline
         {
             get { return _retryingOffline; }
         }
@@ -116,6 +149,9 @@ namespace Services
         }
         #endregion
 
+        /// <summary>
+        /// Inicializa la prueba
+        /// </summary>
         public virtual void Start()
         {
             while (true)
@@ -125,12 +161,19 @@ namespace Services
             }
             // ReSharper disable once FunctionNeverReturns
         }
-
+        /// <summary>
+        /// Dispara el evento de conexion perdida
+        /// </summary>
+        /// <param name="retryResults"></param>
         public virtual void ConnectionLost(List<INetTestResult> retryResults)
         {
             OnConnectionLost?.Invoke(this, new TestNetworkEventArgs(_testNetworkName, retryResults, NetworkTest.HostNameOrAddress, NetworkTest.TestConfiguration?.ToString()));
         }
 
+        /// <summary>
+        /// Dispara el evento de conexión Recuperada
+        /// </summary>
+        /// <param name="restryResults"></param>
         public virtual void ConnectionRestore(List<INetTestResult> restryResults)
         {
             OnConnectionBack?.Invoke(this, new TestNetworkEventArgs(_testNetworkName,restryResults,NetworkTest.HostNameOrAddress, NetworkTest.TestConfiguration?.ToString()));

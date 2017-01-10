@@ -3,9 +3,13 @@ using System.Linq;
 using System.Net.NetworkInformation;
 using System.Threading;
 using Data;
+using Data.NetworkTest;
 using Moq;
 using NUnit.Framework;
 using Services;
+using Services.Log;
+using Services.NetworkTests;
+using Services.State;
 
 namespace UnitTests
 {

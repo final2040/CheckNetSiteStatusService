@@ -1,6 +1,7 @@
 ﻿using System;
 using System.ServiceProcess;
 using Services;
+using Services.Log;
 
 namespace CheckNetSiteStatusService
 {
