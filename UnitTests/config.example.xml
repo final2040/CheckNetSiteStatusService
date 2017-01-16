@@ -1,0 +1,34 @@
+﻿<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestConfig>
+    <WaitTimeSeconds>1</WaitTimeSeconds>
+    <TimeOutSeconds>60</TimeOutSeconds>
+  </TestConfig>
+  
+  <Tests>
+    <TCP Host="173.194.219.138" Port="80">GOOGLE WEB</TCP>
+    <IP Host="1173.194.219.138">GOOGLE PING</IP>
+    <IP Host="206.190.36.45">YAHOO PING</IP>
+    <TCP Host="206.190.36.45" Port="8080" TimeOutMilliSeconds="1500">YAHOO PING</TCP>
+  </Tests>
+
+  <MailConfiguration>
+    <SendFrom>noreply@somemail.com</SendFrom>
+    <Recipients>
+      <Email>someone@somemail.com</Email>
+      <Email>someone1@somemail.com</Email>
+      <Email>someone2@somemail.com</Email>
+    </Recipients>
+    <Subject>Se ha {status} la conexion con {hostname}</Subject>
+    <Body>
+      El equipo {computername} ha perdido la coneccion con el equipo {hostname} con {ip} en el puerto {port} durante mas de {timeout} segundos.
+
+      Favor de verificar el estado de la conexión.
+
+      {testresults}
+    </Body>
+    <IsHtml>false</IsHtml>
+    <SmtpCredentials UserName="olga" Password="algo" />
+    <SmtpConfiguration Host="smtp.somemail.com" Port="465" UseSsl="true" />
+  </MailConfiguration>
+</Configuration>

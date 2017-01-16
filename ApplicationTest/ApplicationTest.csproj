@@ -64,6 +64,9 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="config.example.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="config.xml">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

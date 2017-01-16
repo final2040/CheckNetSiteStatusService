@@ -1,0 +1,43 @@
+﻿<?xml version="1.0"?>
+<Configuration xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <TestConfig>
+    <WaitTimeSeconds>1</WaitTimeSeconds>
+    <TimeOutSeconds>120</TimeOutSeconds>
+  </TestConfig>
+
+  <Tests>
+    <TCP Host="173.194.219.138" Port="80" TimeOutMilliSeconds="500">GOOGLE TEST</TCP>
+    <IP Host="206.190.36.45">YAHOO.COM</IP>
+  </Tests>
+  
+  <MailConfiguration>
+    <SendFrom>noreply@someserver.com</SendFrom>
+    <Recipients>
+      <Email>yourmail@someserver.com</Email>
+    </Recipients>
+    <Subject>Se ha {status} la conexion con {hostname}</Subject>
+    <Body>El equipo {computername} ha {status} la conexión con el equipo {hostname} con ip {host} durante mas de {timeout} segundos.
+    
+Configuración de la de la prueba: {testconfig}
+      
+Favor de verificar el estado de la conexión.
+      
+{testresults}
+    </Body>
+    <IsHtml>false</IsHtml>
+    <SmtpCredentials UserName="yourmail@someserver.com" Password="md4vvz3GT8ogXowius852laMve2HxG3UbZHjM+j13/I=" />
+    <SmtpConfiguration Host="smtp.someserver.com" Port="467" UseSsl="true" />
+  </MailConfiguration>
+</Configuration>
+<!--
+{sendfrom}
+{status}
+{timeout}
+{hostname}
+{computername}
+{ip}
+{port}
+{testresults}
+{appname}
+{appversion}
+-->
