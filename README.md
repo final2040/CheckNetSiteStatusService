@@ -2,7 +2,7 @@
 
 Servicio de Windows que permite monitorear el estado de una o varias conexiones de red. Y notificar vía correo electrónico cuando se pierde o restablece una conexión.
 
-### Prerequisitos
+### Prerrequisitos
 
 - Windows Vista SP2 o superior
 - .Net Framework 4.5.2 o superior
@@ -10,17 +10,17 @@ Servicio de Windows que permite monitorear el estado de una o varias conexiones 
 
 ### Instalación
 
-Solo descargue el instalador mas actual de la seccion [Releases] (https://github.com/final2040/CheckNetSiteStatusService/releases)
+Solo descargue el instalador más actual de la sección [Releases] (https://github.com/final2040/CheckNetSiteStatusService/releases)
 
 ### Configuración
-Network Monitor utiliza un archivo XML para almacenar las configuraciones del servicio de windows a continuación se describen las secciones de configuración que componen el archivo.
+Network Monitor utiliza un archivo XML para almacenar las configuraciones del servicio de Windows a continuación se describen las secciones de configuración que componen el archivo.
 
 #### Configuración de la prueba
 
-Configura las opciones de prueba para la conexión, esta sección se conpone de dos miembros:
+Configura las opciones de prueba para la conexión, esta sección se compone de dos miembros:
 
-- **WaitTimeSecons** .- Especifica el tiempo que se debe esperar entre cada prueba de la conexión.
-- **TimeoutSecons** .- Especifica el tiempo máximo que se requiere antes de envíar el correo electrónico.
+- **WaitTimeSecons**.- Especifica el tiempo que se debe esperar entre cada prueba de la conexión.
+- **TimeoutSecons**.- Especifica el tiempo máximo que se requiere antes de enviar el correo electrónico.
 ```
  <TestConfig>
     <WaitTimeSeconds>1</WaitTimeSeconds>
@@ -32,8 +32,8 @@ Configura las opciones de prueba para la conexión, esta sección se conpone de 
 
 Configura las redes a probar, el servicio web permite configurar hasta 250 monitores de red, se aceptan dos tipos de monitores:
 
-- **TCP** .- Prueba que un puerto en una conexión esté disponible, este tipo de prueba requiere los siguientes atributos: **Host** .- El host a probar, **Port** .- El puerto que se desea probar, **TimeOutMilliSeconds** .- Tiempo de espera antes de considerar la conexión como fallida.
-- **IP** .- Prueba la conecividad del host mediante ping, acepta los siguientes atributos: **Host**.- el Host a probar.
+- **TCP**.- Prueba que un puerto en una conexión esté disponible, este tipo de prueba requiere los siguientes atributos: **Host**: El host a probar, **Port**: El puerto que se desea probar, **TimeOutMilliSeconds**: Tiempo de espera antes de considerar la conexión como fallida.
+- **IP**: Prueba la conectividad del host mediante ping, acepta los siguientes atributos: **Host**: el Host a probar.
 ```
  <Tests>
     <TCP Host="216.58.194.46" Port="80" TimeOutMilliSeconds="500">GOOGLE.COM</TCP>
@@ -44,12 +44,12 @@ Configura las redes a probar, el servicio web permite configurar hasta 250 monit
 
 Configura el cliente de correo electrónico de la aplicación, la configuración se compone de los siguientes miembros:
 
-- **SendFrom**.- La dirección de correo electrónico que aparecera en el apartado **"DE:"** del mensaje.
-- **Recipients**.- Contiene una lista de los correos electrónicos a los que sera enviado el mensaje.
-- **Subject**.- El asunto del mensaje, este campo admite *Tags* de las que se hablara mas adelante.
+- **SendFrom**.- La dirección de correo electrónico que aparecerá en el apartado **"DE:"** del mensaje.
+- **Recipients**.- Contiene una lista de los correos electrónicos a los que será enviado el mensaje.
+- **Subject**.- El asunto del mensaje, este campo admite *Tags* de las que se hablara más adelante.
 - **Body**.- El contenido del mensaje admite *Tags*.
-- **IsHtml**.- Indica si el correo será envíado en formato HTML (no testeado)
-- **SmtpCredentials**.- Especifica las credenciales que se utilizarán para enviar el correo electrónico, este miembro consta de dos atributos forzosos, **UserName**: El nombre de usuario para iniciar sesión, **Password**: La contraseña a utilizar para iniciar sesión, esta contraseña deberá de estar encriptada para poder desencriptar la contraseña por favor vea la documentación de la herramienta [generatepassword](#) incluida en esta aplicación.
+- **IsHtml**.- Indica si el correo será enviado en formato HTML (no testeado)
+- **SmtpCredentials**.- Especifica las credenciales que se utilizarán para enviar el correo electrónico, este miembro consta de dos atributos forzosos, **UserName**: El nombre de usuario para iniciar sesión, **Password**: La contraseña a utilizar para iniciar sesión, esta contraseña deberá de estar encriptada para poder encriptar una nueva contraseña por favor vea la documentación de la herramienta [generatepassword](#) incluida en esta aplicación.
 - **SmtpConfiguration**.- Especifica la configuración del servidor SMTP que será utilizado, consta de tres atributos: **Host**: Dirección del servidor smtp, **Port**: Puerto a utilizar para la conexión, **UseSsl**: Boleano que indica si el servidor smtp utiliza SSL, acepta true y false.
 ```
   <MailConfiguration>
@@ -81,7 +81,7 @@ La aplicación permite introducir información dinámica en el cuerpo del correo
 
 - **{sendfrom}**.- Nombre del correo desde donde se envía el mensaje, equivale al valor de sendfrom de la configuración.
 - **{status}**.- Estado de la conexión "Restablecido", "Perdido".
-- **{timeout}**.- Tiempo máximo que se requiere antes de envíar el correo electrónico.
+- **{timeout}**.- Tiempo máximo que se requiere antes de enviar el correo electrónico.
 - **{hostname}**.- Nombre del Host al que se le realiza la prueba.
 - **{computername}**.- Nombre del equipo que envía la alerta.
 - **{testconfig}**.- Configuración de la prueba.
@@ -89,7 +89,7 @@ La aplicación permite introducir información dinámica en el cuerpo del correo
 - **{appname}**.- Nombre de la aplicación.
 - **{appversion}**.- Versión de la aplicación.
 - **{date}**.- Fecha en la que se generó el correo.
-- **{host}**.- Dirección o nombre del host que se esta probando.
+- **{host}**.- Dirección o nombre del host que se está probando.
 
 ### Ejemplo del archivo de configuración.
 ```
@@ -128,9 +128,9 @@ Favor de verificar el estado de la conexión.
 
 ## Nota a desarrolladores
 
-Para poder probar la aplicación es necesario crear el archivo *config.xml* en los proyectos **ApplicationTest** y **UnitTests**, utilize el archivo *config.example.xml* como guia.
+Para poder probar la aplicación es necesario crear el archivo *config.xml* en los proyectos **ApplicationTest** y **UnitTests**, utilice el archivo *config.example.xml* como guía.
 
-## Authors
+## Author
 
 René Emmanuel Zamorano Flores
 
