@@ -28,6 +28,9 @@ Ejemplos:
         GENERATEPASSWORD /password:mypassword /key:llaveencriptación
 ```
 
+### Nota
+Para generar una contraseña que sea compatible con la aplicación es necesario no utilizar ninguna llave predeterminada.
+
 ## Author
 
 René Emmanuel Zamorano Flores
