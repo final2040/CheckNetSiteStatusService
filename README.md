@@ -49,7 +49,7 @@ Configura el cliente de correo electrónico de la aplicación, la configuración
 - **Subject**.- El asunto del mensaje, este campo admite *Tags* de las que se hablara más adelante.
 - **Body**.- El contenido del mensaje admite *Tags*.
 - **IsHtml**.- Indica si el correo será enviado en formato HTML (no testeado)
-- **SmtpCredentials**.- Especifica las credenciales que se utilizarán para enviar el correo electrónico, este miembro consta de dos atributos forzosos, **UserName**: El nombre de usuario para iniciar sesión, **Password**: La contraseña a utilizar para iniciar sesión, esta contraseña deberá de estar encriptada para poder encriptar una nueva contraseña por favor vea la documentación de la herramienta [generatepassword](#) incluida en esta aplicación.
+- **SmtpCredentials**.- Especifica las credenciales que se utilizarán para enviar el correo electrónico, este miembro consta de dos atributos forzosos, **UserName**: El nombre de usuario para iniciar sesión, **Password**: La contraseña a utilizar para iniciar sesión, esta contraseña deberá de estar encriptada para poder encriptar una nueva contraseña por favor vea la documentación de la herramienta [generatepassword](GeneratePassword.md) incluida en esta aplicación.
 - **SmtpConfiguration**.- Especifica la configuración del servidor SMTP que será utilizado, consta de tres atributos: **Host**: Dirección del servidor smtp, **Port**: Puerto a utilizar para la conexión, **UseSsl**: Boleano que indica si el servidor smtp utiliza SSL, acepta true y false.
 ```
   <MailConfiguration>
