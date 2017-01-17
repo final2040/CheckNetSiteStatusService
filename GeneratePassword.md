@@ -31,6 +31,6 @@ Ejemplos:
 ### Nota
 Para generar una contraseña que sea compatible con la aplicación es necesario no utilizar ninguna llave predeterminada.
 
-## Author
+## Autor
 
 René Emmanuel Zamorano Flores
