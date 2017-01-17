@@ -75,11 +75,21 @@ Configura el cliente de correo electrónico de la aplicación, la configuración
   </MailConfiguration>
 ```
 
-### Tags
+#### Tags
 
 La aplicación permite introducir información dinámica en el cuerpo del correo electrónico, para esto se utilizan los siguientes Tags.
-#### TODO
 
+- **{sendfrom}**.- Nombre del correo desde donde se envía el mensaje, equivale al valor de sendfrom de la configuración.
+- **{status}**.- Estado de la conexión "Restablecido", "Perdido".
+- **{timeout}**.- Tiempo máximo que se requiere antes de envíar el correo electrónico.
+- **{hostname}**.- Nombre del Host al que se le realiza la prueba.
+- **{computername}**.- Nombre del equipo que envía la alerta.
+- **{testconfig}**.- Configuración de la prueba.
+- **{testresults}**.- Resultados de la prueba.
+- **{appname}**.- Nombre de la aplicación.
+- **{appversion}**.- Versión de la aplicación.
+- **{date}**.- Fecha en la que se generó el correo.
+- **{host}**.- Dirección o nombre del host que se esta probando.
 
 ### Ejemplo del archivo de configuración.
 ```
@@ -116,12 +126,11 @@ Favor de verificar el estado de la conexión.
 </Configuration>
 ```
 
+## Nota a desarrolladores
+
+Para poder probar la aplicación es necesario crear el archivo *config.xml* en los proyectos **ApplicationTest** y **UnitTests**, utilize el archivo *config.example.xml* como guia.
 
 ## Authors
 
-#### TODO
+René Emmanuel Zamorano Flores
 
-
-## License
-
-#### TODO
