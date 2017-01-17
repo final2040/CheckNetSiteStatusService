@@ -130,7 +130,7 @@ Favor de verificar el estado de la conexión.
 
 Para poder probar la aplicación es necesario crear el archivo *config.xml* en los proyectos **ApplicationTest** y **UnitTests**, utilice el archivo *config.example.xml* como guía.
 
-## Author
+## Autor
 
 René Emmanuel Zamorano Flores
 
