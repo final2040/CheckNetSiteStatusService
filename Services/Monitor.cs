@@ -28,7 +28,7 @@ namespace Services
         {
             ValidationHelper validator = new ValidationHelper();
             var validationResult = validator.TryValidate(ConfigManager.Configuration);
-            if (validationResult.IsValid)
+            if (!validationResult.IsValid)
             {
                 throw new InvalidOperationException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
                                 "{0}", validationResult.ToString()));

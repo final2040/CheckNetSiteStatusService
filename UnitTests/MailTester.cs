@@ -33,9 +33,7 @@ namespace UnitTests
             mail.SmtpConfiguration.Host = "smtp.gmail.com";
             mail.SmtpConfiguration.Port = 465;
             mail.SmtpConfiguration.UseSsl = true;
-            mail.SmtpCredentials = new NetworkCredential();
-            mail.SmtpCredentials.UserName = "final20@gmail.com";
-            mail.SmtpCredentials.SecurePassword = "rene".ConvertToSecureString();
+            mail.SmtpCredentials = new NetworkCredential("final20@gmail.com","rene");
             
             _mockMail.Setup(mm => mm.Send(message)).Verifiable();
             

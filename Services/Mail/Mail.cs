@@ -12,7 +12,8 @@ namespace Services.Mail
     {
         private SmtpClientWraper _smtpClient = new SmtpClientWraper();
         private bool _disposed;
-        
+
+        public Mail(){}
         public Mail(string user, string password, string host, int port, bool useSsl):this(new NetworkCredential(user,password), new SmtpConfiguration(host,port,useSsl) ){}
         public Mail(string user, string password, SmtpConfiguration configuration):this(new NetworkCredential(user,password), configuration) { }
         public Mail(ICredentialsByHost credentials, SmtpConfiguration configuration)
