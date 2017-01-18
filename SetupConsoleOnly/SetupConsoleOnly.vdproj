@@ -16,7 +16,7 @@
         "Entry"
         {
         "MsmKey" = "8:_31A7803E565D8566538B289ABA38F2FE"
-        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -28,13 +28,19 @@
         "Entry"
         {
         "MsmKey" = "8:_353E129C61F9CA18361C863577A712C8"
-        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
         {
         "MsmKey" = "8:_353E129C61F9CA18361C863577A712C8"
         "OwnerKey" = "8:_67538785C49008B4ADC543B99FDD48C3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
+        "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -46,7 +52,7 @@
         "Entry"
         {
         "MsmKey" = "8:_67538785C49008B4ADC543B99FDD48C3"
-        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -58,7 +64,7 @@
         "Entry"
         {
         "MsmKey" = "8:_9C8D3DB8F9B9106CA7D9E98E8AA1AED3"
-        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -76,7 +82,7 @@
         "Entry"
         {
         "MsmKey" = "8:_UNDEFINED"
-        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -164,7 +170,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Data, Version=1.5.6227.15822, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Data, Version=1.5.6227.19914, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_31A7803E565D8566538B289ABA38F2FE"
@@ -195,7 +201,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:Services, Version=1.8.6227.16005, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:Services, Version=1.8.6227.19914, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_353E129C61F9CA18361C863577A712C8"
@@ -226,7 +232,7 @@
             {
             "AssemblyRegister" = "3:1"
             "AssemblyIsInGAC" = "11:FALSE"
-            "AssemblyAsmDisplayName" = "8:WindowsService, Version=1.5.6227.16005, Culture=neutral, processorArchitecture=MSIL"
+            "AssemblyAsmDisplayName" = "8:WindowsService, Version=1.5.6227.19914, Culture=neutral, processorArchitecture=MSIL"
                 "ScatterAssemblies"
                 {
                     "_67538785C49008B4ADC543B99FDD48C3"
@@ -265,7 +271,7 @@
             "ReadOnly" = "11:FALSE"
             "Hidden" = "11:FALSE"
             "System" = "11:FALSE"
-            "Permanent" = "11:FALSE"
+            "Permanent" = "11:TRUE"
             "SharedLegacy" = "11:FALSE"
             "PackageAs" = "3:1"
             "Register" = "3:1"
@@ -391,15 +397,15 @@
         {
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Network Monitor"
-        "ProductCode" = "8:{1A962373-3840-4CB7-A6B3-C793507EEA13}"
-        "PackageCode" = "8:{991CA2AC-20D9-4B25-BFE4-940B788DB9B5}"
+        "ProductCode" = "8:{58FDFC8A-6DE0-4581-B7B1-2664BC22D5E7}"
+        "PackageCode" = "8:{CE05A369-C284-401A-B9F2-712E8BD40C6E}"
         "UpgradeCode" = "8:{AD731965-EAD0-46C8-993E-D6033796EC9F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
         "RemovePreviousVersions" = "11:TRUE"
         "DetectNewerInstalledVersion" = "11:TRUE"
         "InstallAllUsers" = "11:TRUE"
-        "ProductVersion" = "8:1.0.1"
+        "ProductVersion" = "8:1.0.2"
         "Manufacturer" = "8:Dreamsoft"
         "ARPHELPTELEPHONE" = "8:"
         "ARPHELPLINK" = "8:"
@@ -925,9 +931,37 @@
         }
         "ProjectOutput"
         {
+            "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_35A87C829D0B422583815C90A0CAF5B5"
+            {
+            "SourcePath" = "8:..\\GeneratePassword\\obj\\Release\\GeneratePassword.exe"
+            "TargetName" = "8:"
+            "Tag" = "8:"
+            "Folder" = "8:_236862B199E94326A2924F8124A133D3"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            "ProjectOutputGroupRegister" = "3:1"
+            "OutputConfiguration" = "8:"
+            "OutputGroupCanonicalName" = "8:Built"
+            "OutputProjectGuid" = "8:{32E57B68-6633-4895-8ADB-7DF510E9C049}"
+            "ShowKeyOutput" = "11:TRUE"
+                "ExcludeFilters"
+                {
+                }
+            }
             "{5259A561-127C-4D43-A0A1-72F10C7B3BF8}:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
             {
-            "SourcePath" = "8:..\\ConsoleApplication\\obj\\Debug\\ConsoleApplication.exe"
+            "SourcePath" = "8:..\\ConsoleApplication\\obj\\Release\\ConsoleApplication.exe"
             "TargetName" = "8:"
             "Tag" = "8:"
             "Folder" = "8:_236862B199E94326A2924F8124A133D3"
