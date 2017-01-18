@@ -22,6 +22,12 @@
         "Entry"
         {
         "MsmKey" = "8:_31A7803E565D8566538B289ABA38F2FE"
+        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_31A7803E565D8566538B289ABA38F2FE"
         "OwnerKey" = "8:_353E129C61F9CA18361C863577A712C8"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -29,6 +35,12 @@
         {
         "MsmKey" = "8:_353E129C61F9CA18361C863577A712C8"
         "OwnerKey" = "8:_35A87C829D0B422583815C90A0CAF5B5"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_353E129C61F9CA18361C863577A712C8"
+        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -57,6 +69,12 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_67538785C49008B4ADC543B99FDD48C3"
+        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_9869CEEC348F4DEAA207A7620B6557F0"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
@@ -69,7 +87,19 @@
         }
         "Entry"
         {
+        "MsmKey" = "8:_9C8D3DB8F9B9106CA7D9E98E8AA1AED3"
+        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
         "MsmKey" = "8:_C55675E9C9354F448C66CBD569AD65D3"
+        "OwnerKey" = "8:_UNDEFINED"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_CCA9EAACD8F5479797394305B318E556"
         "OwnerKey" = "8:_UNDEFINED"
         "MsmSig" = "8:_UNDEFINED"
         }
@@ -77,6 +107,12 @@
         {
         "MsmKey" = "8:_UNDEFINED"
         "OwnerKey" = "8:_9C8D3DB8F9B9106CA7D9E98E8AA1AED3"
+        "MsmSig" = "8:_UNDEFINED"
+        }
+        "Entry"
+        {
+        "MsmKey" = "8:_UNDEFINED"
+        "OwnerKey" = "8:_36BBCFFD108B4A5FA73CBEB8B2D696A4"
         "MsmSig" = "8:_UNDEFINED"
         }
         "Entry"
@@ -330,6 +366,26 @@
             "IsDependency" = "11:FALSE"
             "IsolateTo" = "8:"
             }
+            "{1FB2D0AE-D3B9-43D4-B9DD-F88EC61E35DE}:_CCA9EAACD8F5479797394305B318E556"
+            {
+            "SourcePath" = "8:..\\Docs\\Guia de Uso.pdf"
+            "TargetName" = "8:Guia de Uso.pdf"
+            "Tag" = "8:"
+            "Folder" = "8:_F6CF756C62E4495BAEE1492F38D52A4C"
+            "Condition" = "8:"
+            "Transitive" = "11:FALSE"
+            "Vital" = "11:TRUE"
+            "ReadOnly" = "11:FALSE"
+            "Hidden" = "11:FALSE"
+            "System" = "11:FALSE"
+            "Permanent" = "11:FALSE"
+            "SharedLegacy" = "11:FALSE"
+            "PackageAs" = "3:1"
+            "Register" = "3:1"
+            "Exclude" = "11:FALSE"
+            "IsDependency" = "11:FALSE"
+            "IsolateTo" = "8:"
+            }
         }
         "FileType"
         {
@@ -346,6 +402,17 @@
             "Property" = "8:TARGETDIR"
                 "Folders"
                 {
+                    "{9EF0B969-E518-4E46-987F-47570745A589}:_F6CF756C62E4495BAEE1492F38D52A4C"
+                    {
+                    "Name" = "8:Docs"
+                    "AlwaysCreate" = "11:FALSE"
+                    "Condition" = "8:"
+                    "Transitive" = "11:FALSE"
+                    "Property" = "8:_F8645DBCE0D44986A80E311F967BC9E4"
+                        "Folders"
+                        {
+                        }
+                    }
                 }
             }
             "{1525181F-901A-416C-8A58-119130FE478E}:_4B90B4B19B2149D1A1A4D07EDDD05026"
@@ -398,7 +465,7 @@
         "Name" = "8:Microsoft Visual Studio"
         "ProductName" = "8:Network Monitor"
         "ProductCode" = "8:{58FDFC8A-6DE0-4581-B7B1-2664BC22D5E7}"
-        "PackageCode" = "8:{CE05A369-C284-401A-B9F2-712E8BD40C6E}"
+        "PackageCode" = "8:{C75548F9-0D1B-456B-B20C-84BA56B986A1}"
         "UpgradeCode" = "8:{AD731965-EAD0-46C8-993E-D6033796EC9F}"
         "AspNetVersion" = "8:4.0.30319.0"
         "RestartWWWService" = "11:FALSE"
@@ -530,6 +597,20 @@
             "Folder" = "8:_CBBC125D34934790BAFD41145BB376F4"
             "WorkingFolder" = "8:_236862B199E94326A2924F8124A133D3"
             "Icon" = "8:_C55675E9C9354F448C66CBD569AD65D3"
+            "Feature" = "8:"
+            }
+            "{970C0BB2-C7D0-45D7-ABFA-7EC378858BC0}:_4337999B108C45E1BB65807BB661B35D"
+            {
+            "Name" = "8:Guia de Uso.pdf"
+            "Arguments" = "8:"
+            "Description" = "8:"
+            "ShowCmd" = "3:1"
+            "IconIndex" = "3:0"
+            "Transitive" = "11:FALSE"
+            "Target" = "8:_CCA9EAACD8F5479797394305B318E556"
+            "Folder" = "8:_CBBC125D34934790BAFD41145BB376F4"
+            "WorkingFolder" = "8:_F6CF756C62E4495BAEE1492F38D52A4C"
+            "Icon" = "8:"
             "Feature" = "8:"
             }
         }
