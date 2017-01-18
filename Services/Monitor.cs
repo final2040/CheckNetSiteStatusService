@@ -5,7 +5,6 @@ using System.Net;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
-using Data;
 using Data.NetworkTest;
 using Services.Configuration;
 using Services.Encription;
@@ -20,7 +19,7 @@ namespace Services
     public class Monitor 
     {
 
-        private readonly Mail.Mail _smtpClient = new Mail.Mail();
+        private readonly Mail.Mail _smtpClient;
         private readonly Logger _log = Logger.GetLogger();
         private readonly Dictionary<Thread, NetworkMonitor> _monitorCollection = new Dictionary<Thread, NetworkMonitor>();
         private readonly Data.Configuration.Configuration _configuration;
@@ -29,28 +28,17 @@ namespace Services
         {
             ValidationHelper validator = new ValidationHelper();
             var validationResult = validator.TryValidate(ConfigManager.Configuration);
-
             if (validationResult.IsValid)
-            {
-                _configuration = ConfigManager.Configuration;
-                InitializeSmtp();
-            }
-            else
             {
                 throw new InvalidOperationException(string.Format("Ocurrío uno o mas errores al validar las configuraciones abortando..." + Environment.NewLine +
                                 "{0}", validationResult.ToString()));
             }
-        }
 
-        /// <summary>
-        /// Inicializa el cliente smtp para su uso.
-        /// </summary>
-        private void InitializeSmtp()
-        {
+            _configuration = ConfigManager.Configuration;
+
             try
             {
-                _smtpClient.SmtpConfiguration = _configuration.MailConfiguration.SmtpConfiguration;
-                _smtpClient.SmtpCredentials = GetCredentials();
+                _smtpClient = new Mail.Mail(GetCredentials(), _configuration.MailConfiguration.SmtpConfiguration);
             }
             catch (FormatException ex)
             {
@@ -68,6 +56,7 @@ namespace Services
                                                                   " correo: ", ex);
             }
         }
+       
         /// <summary>
         /// Inicia la aplicación, creando los hilos encargados del monitoreo.
         /// </summary>

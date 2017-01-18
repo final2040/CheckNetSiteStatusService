@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Net;
 using System.Net.Mail;
-using Data;
 using Data.Mail;
 
 namespace Services.Mail
@@ -13,7 +12,14 @@ namespace Services.Mail
     {
         private SmtpClientWraper _smtpClient = new SmtpClientWraper();
         private bool _disposed;
-
+        
+        public Mail(string user, string password, string host, int port, bool useSsl):this(new NetworkCredential(user,password), new SmtpConfiguration(host,port,useSsl) ){}
+        public Mail(string user, string password, SmtpConfiguration configuration):this(new NetworkCredential(user,password), configuration) { }
+        public Mail(ICredentialsByHost credentials, SmtpConfiguration configuration)
+        {
+            SmtpCredentials = credentials;
+            SmtpConfiguration = configuration;
+        }
         /// <summary>
         /// Propiedad que obtiene o establece el cliente que envíara el correo
         /// </summary>
@@ -31,7 +37,7 @@ namespace Services.Mail
         /// <summary>
         /// Propiedad que obtiene o establece las credenciales que utilizara el cliente SMTP
         /// </summary>
-        public NetworkCredential SmtpCredentials { get; set; }
+        public ICredentialsByHost SmtpCredentials { get; set; }
 
         /// <summary>
         /// Envía el mensaje de correo electrónico especificado
