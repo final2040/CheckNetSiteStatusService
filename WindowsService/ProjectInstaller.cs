@@ -1,8 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Configuration.Install;
-using System.ServiceProcess;
 
-namespace CheckNetSiteStatusService
+namespace WindowsService
 {
     [RunInstaller(true)]
     public partial class ProjectInstaller : Installer

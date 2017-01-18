@@ -1,7 +1,7 @@
 ﻿using System.ServiceProcess;
 using Services;
 
-namespace CheckNetSiteStatusService
+namespace WindowsService
 {
     public partial class NetChecker : ServiceBase
     {

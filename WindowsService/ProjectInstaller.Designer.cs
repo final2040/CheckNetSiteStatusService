@@ -1,4 +1,4 @@
-﻿namespace CheckNetSiteStatusService
+﻿namespace WindowsService
 {
     partial class ProjectInstaller
     {

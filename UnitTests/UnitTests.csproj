@@ -65,7 +65,7 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CheckNetSiteStatusService\CheckNetSiteStatusService.csproj">
+    <ProjectReference Include="..\WindowsService\WindowsService.csproj">
       <Project>{5a13ad46-48e4-4c08-abfb-652f82080c58}</Project>
       <Name>CheckNetSiteStatusService</Name>
     </ProjectReference>

@@ -1,9 +1,8 @@
 ﻿using System;
 using System.ServiceProcess;
-using Services;
 using Services.Log;
 
-namespace CheckNetSiteStatusService
+namespace WindowsService
 {
     static class Program
     {

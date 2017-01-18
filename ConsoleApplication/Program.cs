@@ -1,9 +1,8 @@
 ﻿using System;
-using CheckNetSiteStatusService;
 using Services;
 using Services.Log;
 
-namespace ApplicationTest
+namespace ConsoleApplication
 {
     internal class Program
     {
