@@ -21,10 +21,9 @@ namespace ConsoleApplication
             {
                 Logger.GetLogger().WriteError(ex.Message);
                 Logger.GetLogger().WriteWarning("La aplicación finalizó con errores...");
+                Console.WriteLine("Presione una tecla para continuar...");
+                Console.ReadKey();
             }
-
-            Console.WriteLine("Presione una tecla para continuar...");
-            Console.ReadKey();
         }
 
         private static void Console_CancelKeyPress(object sender, ConsoleCancelEventArgs e)
