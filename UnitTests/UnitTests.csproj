@@ -52,7 +52,7 @@
     <Compile Include="AesEncrypterTests.cs" />
     <Compile Include="ConfigurationManagerTests.cs" />
     <Compile Include="LoggerTests.cs" />
-    <Compile Include="MailBuilderTests.cs" />
+    <Compile Include="MessageBuilderTests.cs" />
     <Compile Include="MailTester.cs" />
     <Compile Include="NetworkMonitorTests.cs" />
     <Compile Include="NetworkTests.cs" />

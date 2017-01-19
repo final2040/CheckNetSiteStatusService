@@ -49,7 +49,7 @@
     <Compile Include="NetworkTests\INetworkTest.cs" />
     <Compile Include="Encription\ICryptoKey.cs" />
     <Compile Include="Encription\IEncryptor.cs" />
-    <Compile Include="Mail\MailBuilder.cs" />
+    <Compile Include="Mail\MessageBuilder.cs" />
     <Compile Include="Encription\Md5Key.cs" />
     <Compile Include="Log\FileLogWriter.cs" />
     <Compile Include="Log\Logger.cs" />

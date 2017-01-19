@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Reflection;
 using System.Security.Cryptography;
 using System.Text;
 using System.Threading;
@@ -179,17 +180,19 @@ namespace Services
             var testResults = PrintResults(eventArgs);
 
             _log.WriteInformation("Enviando correo electrónico");
-            MailBuilder builder = new MailBuilder(_configuration);
+            MessageBuilder builder = new MessageBuilder(_configuration.MailConfiguration);
             builder.AddParam("testresults", testResults);
             builder.AddParam("date", DateTime.Now.ToString("d"));
             builder.AddParam("host", eventArgs.HostNameOrAddress);
             builder.AddParam("hostname", eventArgs.ConnectionName);
             builder.AddParam("status", typeOfTheEvent);
             builder.AddParam("testconfig", eventArgs.TestConfig);
-            builder.AddParam("ip", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
-                                     "para obtener la configuración de la prueba.");
-            builder.AddParam("port", "La opción Port ha quedado obsoleta por favor utilize {testconfig} en su lugar " +
-                                     "para obtener la configuración de la prueba.");
+            builder.AddParam("sendfrom", _configuration.MailConfiguration.SendFrom);
+            builder.AddParam("timeout", _configuration.TestConfig.TimeOutSeconds);
+            builder.AddParam("computername", Environment.MachineName);
+            builder.AddParam("appname", "DreamSoft Network Monitor");
+            builder.AddParam("appversion", new AssemblyName(Assembly.GetExecutingAssembly().FullName).Version);
+
             try
             {
                 _smtpClient.Send(builder.Build());

@@ -1,19 +1,18 @@
 ﻿using System;
-using System.Net.Mail;
-using Data;
-using NUnit.Framework;
-using Services;
 using System.Collections.Generic;
 using System.IO;
+using System.Net.Mail;
+using System.Reflection;
 using Data.Configuration;
 using Data.NetworkTest;
+using NUnit.Framework;
 using Services.Configuration;
 using Services.Mail;
 
 namespace UnitTests
 {
     [TestFixture]
-    public class MailBuilderTests
+    public class MessageBuilderTests
     {
         private Configuration _configuration;
 
@@ -28,13 +27,20 @@ namespace UnitTests
         public void ShouldBuildMailMessage()
         {
             // arrange
-            MailBuilder mailBuilder = new MailBuilder(_configuration);
+            MessageBuilder messageBuilder = new MessageBuilder(_configuration.MailConfiguration);
             List<INetTestResult> results = new List<INetTestResult>() { new PingTestResult(32, "172.28.129.100", 0, 128) };
-            mailBuilder.Params.Add("ip","172.28.129.100");
-            mailBuilder.Params.Add("hostname", "Connection1");
-            mailBuilder.Params.Add("port",8080);
+            messageBuilder.AddParam("ip","172.28.129.100");
+            messageBuilder.AddParam("hostname", "Connection1");
+            messageBuilder.AddParam("port",8080);
+            messageBuilder.AddParam("date", DateTime.Now.ToString("d"));
+            messageBuilder.AddParam("sendfrom", _configuration.MailConfiguration.SendFrom);
+            messageBuilder.AddParam("timeout", _configuration.TestConfig.TimeOutSeconds);
+            messageBuilder.AddParam("computername", Environment.MachineName);
+            messageBuilder.AddParam("appname", "DreamSoft Network Monitor");
+            messageBuilder.AddParam("appversion", new AssemblyName(Assembly.GetExecutingAssembly().FullName).Version);
+ 
             // act
-            MailMessage result = mailBuilder.Build();
+            MailMessage result = messageBuilder.Build();
 
             // assert
             Assert.AreEqual(new MailAddress("noreply@airpak-latam.com"), result.From);
@@ -49,14 +55,20 @@ namespace UnitTests
         public void ShouldBuildMailMessagewithCustomParams()
         {
             // arrange
-            MailBuilder mailBuilder = new MailBuilder(_configuration);
+            MessageBuilder messageBuilder = new MessageBuilder(_configuration.MailConfiguration);
             List<INetTestResult> results = new List<INetTestResult>() { new PingTestResult(32, "172.28.129.100", 0, 128) };
-            mailBuilder.AddParam("status", "perdido");
-            mailBuilder.Params.Add("ip", "172.28.129.100");
-            mailBuilder.Params.Add("hostname", "Connection1");
-            mailBuilder.Params.Add("port", 8080);
+            messageBuilder.AddParam("status", "perdido");
+            messageBuilder.AddParam("ip", "172.28.129.100");
+            messageBuilder.AddParam("hostname", "Connection1");
+            messageBuilder.AddParam("port", 8080);
+            messageBuilder.AddParam("sendfrom", _configuration.MailConfiguration.SendFrom);
+            messageBuilder.AddParam("timeout", _configuration.TestConfig.TimeOutSeconds);
+            messageBuilder.AddParam("computername", Environment.MachineName);
+            messageBuilder.AddParam("appname", "DreamSoft Network Monitor");
+            messageBuilder.AddParam("appversion", new AssemblyName(Assembly.GetExecutingAssembly().FullName).Version);
+            
             // act
-            MailMessage result = mailBuilder.Build();
+            MailMessage result = messageBuilder.Build();
 
             // assert
             Assert.AreEqual(new MailAddress("noreply@airpak-latam.com"), result.From);
